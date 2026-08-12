@@ -54,7 +54,7 @@ async function pollStatus() {
             statusEl.textContent = '✅ Conectado a WhatsApp';
             statusEl.className = 'status connected';
             qrWrapper.style.display = 'none';
-        } else if (data.status === 'waiting' && data.qrUrl) {
+        } else if ((data.status === 'qr_ready' || data.status === 'waiting') && data.qrUrl) {
             statusEl.textContent = '⚠️ Esperando escaneo...';
             statusEl.className = 'status waiting';
             qrWrapper.style.display = 'block';
