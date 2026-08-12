@@ -62,6 +62,13 @@ app.get('/api/bot/status', (req, res) => {
     res.json({ status: botStatus, qrUrl: currentQRBase64 });
 });
 
+// Endpoint raíz para evitar "Cannot GET /" en el navegador
+app.get('/', (req, res) => {
+    res.send(`<h1>Servicio de Bot de WhatsApp</h1>
+              <p>Estado actual: <strong>${botStatus}</strong></p>
+              <p>Este es un microservicio interno. La tienda web se encarga de usarlo.</p>`);
+});
+
 startBot();
 
 const PORT = 8081;
