@@ -1,0 +1,70 @@
+const { makeWASocket, useMultiFileAuthState } = require('@whiskeysockets/baileys');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+let sock;
+let botStatus = 'disconnected';
+let currentQRBase64 = null;
+
+async function startBot() {
+    const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys');
+    
+    sock = makeWASocket({
+        printQRInTerminal: false,
+        auth: state,
+    });
+
+    sock.ev.on('creds.update', saveCreds);
+
+    sock.ev.on('connection.update', async (update) => {
+        const { connection, qr } = update;
+        
+        if (qr) {
+            botStatus = 'qr_ready';
+            const qrcode = require('qrcode');
+            currentQRBase64 = await qrcode.toDataURL(qr);
+        }
+
+        if (connection === 'close') {
+            botStatus = 'disconnected';
+            console.log('Bot desconectado. Intentando reconectar...');
+            startBot();
+        } else if (connection === 'open') {
+            botStatus = 'connected';
+            currentQRBase64 = null;
+            console.log('✅ Bot de WhatsApp conectado exitosamente');
+        }
+    });
+}
+
+// Endpoint para que server.js pida enviar mensajes
+app.post('/api/bot/send', async (req, res) => {
+    const { to, text } = req.body;
+    if (botStatus !== 'connected' || !sock) {
+        return res.status(503).json({ error: 'El bot no está conectado a WhatsApp.' });
+    }
+    
+    try {
+        await sock.sendMessage(to, { text });
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error enviando mensaje de WhatsApp:", error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Endpoint para leer el estado y QR
+app.get('/api/bot/status', (req, res) => {
+    res.json({ status: botStatus, qrUrl: currentQRBase64 });
+});
+
+startBot();
+
+const PORT = 8081;
+app.listen(PORT, () => {
+    console.log(`Bot de WhatsApp corriendo en http://localhost:${PORT}`);
+});

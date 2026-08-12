@@ -1,0 +1,4 @@
+node_modules/
+.env
+temp.db
+auth_info_baileys/

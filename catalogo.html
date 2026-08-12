@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | Florería Margaritas</title>
+    <link rel="stylesheet" href="styles.css?v=5">
+    <link rel="stylesheet" href="gemini.css?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="top-bar top-bar-light">
+        <div class="top-bar-left">
+            <span><i class="fa-solid fa-location-dot"></i> Aviadores del Chaco 1727 esq. Cesar Lopez Moreira - Asunción, Paraguay</span>
+            <span class="separator">|</span>
+            <span><i class="fa-solid fa-phone"></i> +595 983 314 520</span>
+        </div>
+        <div class="top-bar-right">
+            <a href="#" onclick="showToast('Formulario de contacto próximamente')">Contacto</a>
+            <a href="#" onclick="showToast('Página Sobre Nosotros próximamente')">Sobre Nosotros</a>
+        </div>
+    </div>
+
+    <header class="header">
+        <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        <div class="logo">
+            <h1>MARGARITAS</h1>
+            <span>Flowers & Gifts</span>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html#favoritos">FAVORITOS DE LA SEMANA</a></li>
+                <li><a href="ocasiones.html">OCASIONES <i class="fa-solid fa-chevron-down text-xs"></i></a></li>
+                <li><a href="colecciones.html">COLECCIONES <i class="fa-solid fa-chevron-down text-xs"></i></a></li>
+                <li><a href="catalogo.html">VER TODO</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <a href="#" id="open-search"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="#" id="open-login"><i class="fa-regular fa-user"></i></a>
+            <a href="#" id="open-favs" class="icon-badge"><i class="fa-regular fa-heart"></i><span class="badge" id="fav-badge">0</span></a>
+            <a href="#" id="open-cart" class="icon-badge"><i class="fa-solid fa-bag-shopping"></i><span class="badge red" id="cart-badge">0</span></a>
+        </div>
+    </header>
+    
+    <main>
+        <section class="page-banner">
+            <h2 class="serif">Catálogo Completo</h2>
+        </section>
+        
+        <div class="catalog-sections">
+            <section id="favoritos" class="catalog-section">
+                <h2 class="section-heading">Favoritos de la Semana</h2>
+                <div class="product-grid" id="grid-favoritos"></div>
+            </section>
+            
+            <section id="ocasiones" class="catalog-section">
+                <h2 class="section-heading">Ocasiones Especiales</h2>
+                <div class="product-grid" id="grid-ocasiones"></div>
+            </section>
+            
+            <section id="colecciones" class="catalog-section">
+                <h2 class="section-heading">Colecciones Exclusivas</h2>
+                <div class="product-grid" id="grid-colecciones"></div>
+            </section>
+        </div>
+
+        <a href="https://wa.me/595983314520?text=Hola,%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20arreglos%20florales" class="whatsapp-btn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </main>
+
+    <!-- Interactive Overlay -->
+    <div id="cart-overlay" class="overlay"></div>
+
+    <!-- Sidebar Cart -->
+    <aside id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button id="close-cart-btn" class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Items -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="openGeminiModal()">Enviar Pedido</button>
+        </div>
+    </aside>
+
+    <!-- Quick View Modal -->
+    <div id="quick-view-modal" class="quick-view-modal">
+        <button id="close-modal-btn" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-img-container">
+            <img id="modal-img" src="" alt="Producto">
+        </div>
+        <div class="modal-details">
+            <h2 id="modal-title" class="modal-title">Título</h2>
+            <div id="modal-price" class="modal-price">$0.00</div>
+            <p id="modal-desc" class="modal-desc">Un arreglo floral elegante y sofisticado perfecto para regalar momentos inolvidables. Diseño premium elaborado por nuestros expertos floristas.</p>
+            <button class="modal-add-btn" id="modal-add-btn">AGREGAR AL CARRITO</button>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="search-modal">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Buscar flores, arreglos, ocasiones..." id="search-input">
+            <button id="close-search-btn" class="close-search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="login-modal">
+        <button id="close-login-btn" class="close-login"><i class="fa-solid fa-xmark"></i></button>
+        <h2>Iniciar Sesión</h2>
+        <div class="form-group">
+            <input type="text" id="login-username" placeholder="Usuario o Correo" required>
+        </div>
+        <div class="form-group">
+            <input type="password" id="login-password" placeholder="Contraseña" required>
+        </div>
+        <button class="login-btn" id="submit-login-btn">Ingresar</button>
+        <p id="login-error-msg" style="color: red; font-size: 0.85rem; display: none; margin-top: 10px;">Credenciales inválidas.</p>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">¿No tienes cuenta? <a href="#" style="color: var(--text-dark); font-weight: 600;">Regístrate</a></p>
+    </div>
+
+    <!-- Favorites Sidebar -->
+    <aside id="fav-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tus Favoritos</h3>
+            <button id="close-fav-btn" class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="fav-items-container">
+            <!-- Items -->
+        </div>
+        <div class="cart-footer">
+            <button class="checkout-btn" onclick="showToast('Función próximamente disponible'); closeModals();">Mover al carrito</button>
+        </div>
+    </aside>
+
+    <!-- Gemini Checkout Modal -->
+    <div id="gemini-modal" class="gemini-modal">
+        <div class="gemini-header">
+            <h3><i class="fa-solid fa-robot"></i> Asistente de Compras</h3>
+            <button id="close-gemini-btn" class="close-search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="gemini-body" id="gemini-chat-body">
+            <div class="gemini-msg bot">
+                ¡Hola! Qué excelente elección de flores. 🌸<br><br>
+                Para procesar tu pedido y enviarlo a la tienda, por favor escríbeme de forma natural:<br><br>
+                - 👤 Tu nombre<br>
+                - 🫂 Quién recibe<br>
+                - 📱 Teléfono<br>
+                - 😍 Dedicatoria<br>
+                - ⏰ Horario de entrega
+            </div>
+        </div>
+        <div class="typing-indicator" id="gemini-typing" style="padding-left: 20px;">🪄 Inteligencia Artificial procesando orden...</div>
+        <div class="gemini-footer">
+            <textarea id="gemini-input" class="gemini-input" placeholder="Ej: Soy Carlos, envíale a Ana al 0991..."></textarea>
+            <button id="gemini-send-btn" class="gemini-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <footer style="background: #111; color: white; padding: 40px 20px; text-align: center; margin-top: 40px;">
+        <p>&copy; 2026 Margaritas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

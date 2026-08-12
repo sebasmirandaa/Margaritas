@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | Margaritas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #fcf9fa; color: #333; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center; }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { background: #333; color: white; border: none; padding: 12px 20px; width: 100%; border-radius: 4px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+        button:hover { background: #000; }
+        
+        #dashboard { display: none; }
+        .qr-container { margin: 20px 0; }
+        .qr-container img { max-width: 100%; border: 1px solid #eee; border-radius: 8px; padding: 10px; }
+        .status { margin-top: 10px; font-weight: bold; }
+        .status.connected { color: #28a745; }
+        .status.waiting { color: #ffc107; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-section">
+        <h1>Panel de Control</h1>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Accede con credenciales de superusuario</p>
+        <div class="form-group">
+            <label>Usuario</label>
+            <input type="text" id="username" placeholder="admin">
+        </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="password" placeholder="admin">
+        </div>
+        <button id="login-btn">Iniciar Sesión</button>
+        <p id="login-err" style="color: red; font-size: 0.85rem; display: none;">Credenciales inválidas.</p>
+    </div>
+
+    <div class="container" id="dashboard">
+        <h1>Estado de WhatsApp</h1>
+        <div class="status waiting" id="bot-status">Consultando...</div>
+        <div class="qr-container" id="qr-wrapper" style="display: none;">
+            <p style="font-size: 0.9rem; margin-bottom:10px;">Escanea este código con el WhatsApp del local para vincular el bot de ventas:</p>
+            <img id="qr-img" src="" alt="Código QR">
+        </div>
+        <button onclick="logout()" style="margin-top: 20px; background: #dc3545;">Cerrar Sesión</button>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+/* Gemini Chat Modal */
+.gemini-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    width: 500px;
+    max-width: 95vw;
+    height: 600px;
+    max-height: 90vh;
+    background: white;
+    z-index: 1200;
+    border-radius: 8px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+.gemini-modal.open {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    visibility: visible;
+}
+.gemini-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.gemini-header h3 {
+    font-family: var(--font-serif);
+    margin: 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.gemini-body {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fcf9fa;
+}
+.gemini-msg {
+    max-width: 85%;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.gemini-msg.bot {
+    background: white;
+    border: 1px solid #eee;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+.gemini-msg.user {
+    background: var(--text-dark);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+.gemini-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+.gemini-input {
+    flex-grow: 1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-family: var(--font-sans);
+    resize: none;
+    height: 50px;
+}
+.gemini-send-btn {
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.gemini-send-btn:hover {
+    background: #000;
+}
+.typing-indicator {
+    display: none;
+    color: #999;
+    font-style: italic;
+    font-size: 0.85rem;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+.typing-indicator.active {
+    display: block;
+}
