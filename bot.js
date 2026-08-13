@@ -1,6 +1,9 @@
-const { makeWASocket, useMultiFileAuthState } = require('@whiskeysockets/baileys');
+require('dotenv').config();
+const { makeWASocket } = require('@whiskeysockets/baileys');
 const express = require('express');
 const cors = require('cors');
+const usePostgresAuthState = require('./pgAuthState');
+const pool = require('./database');
 
 const app = express();
 app.use(cors());
@@ -9,9 +12,11 @@ app.use(express.json());
 let sock;
 let botStatus = 'disconnected';
 let currentQRBase64 = null;
+let clearStateFn = null;
 
 async function startBot() {
-    const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys');
+    const { state, saveCreds, clearState } = await usePostgresAuthState(pool);
+    clearStateFn = clearState;
     
     sock = makeWASocket({
         printQRInTerminal: false,
@@ -79,6 +84,9 @@ app.post('/api/bot/disconnect', async (req, res) => {
         currentQRBase64 = null;
         
         // Borrar credenciales para forzar nuevo QR
+        if (clearStateFn) {
+            await clearStateFn();
+        }
         if (fs.existsSync('auth_info_baileys')) {
             fs.rmSync('auth_info_baileys', { recursive: true, force: true });
         }
