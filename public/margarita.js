@@ -45,28 +45,28 @@
       key: 'primavera', name: 'Primavera', icon: 'flower', months: 'sep – nov', ink: '#4a2a38',
       heroLine1: 'Llegó la', heroLine2: 'Primavera', heroTag: 'Rosas amarillas', heroPrice: '150.000 Gs',
       heroImg: 'assets/f-amarillas.png', promoScript: 'Tendencia amarilla', featTitle: 'Especial Flores Amarillas',
-      promoTitle: 'Ramo primaveral + bombones', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 0,
+      promoTitle: 'Ramo primaveral + bombones', promoSub: 'Dedicatoria', promoProduct: 0,
       flowers: ["Rosa", "Tulipán", "Peonía", "Fresia", "Hortensia", "Margarita", "Jazmín", "Azalea", "Iris", "Lirio", "Petunia", "Caléndula", "Girasol", "Gerbera", "Narciso"], feat: [0, 1, 2, 3]
     },
     verano: {
       key: 'verano', name: 'Verano', icon: 'sun', months: 'dic – feb', ink: '#123a4a',
       heroLine1: 'Colección de', heroLine2: 'Verano', heroTag: 'Girasoles y margaritas', heroPrice: '110.000 Gs',
       heroImg: 'assets/gen_3.jpg', promoScript: 'Promo de verano', featTitle: 'Favoritos del verano',
-      promoTitle: 'Arreglo de verano + florero', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 15,
+      promoTitle: 'Arreglo de verano + florero', promoSub: 'Dedicatoria', promoProduct: 15,
       flowers: ["Girasol", "Rosa", "Hibisco", "Hortensia", "Zinnia", "Dalia", "Lavanda", "Buganvilla", "Cosmos", "Lirio", "Celosia", "Jazmín", "Portulaca", "Geranio", "Gazania"], feat: [15, 16, 17, 18]
     },
     otono: {
       key: 'otono', name: 'Otoño', icon: 'leaf', months: 'mar – may', ink: '#4a3220',
       heroLine1: 'Colores de', heroLine2: 'Otoño', heroTag: 'Ramo silvestre pastel', heroPrice: '95.000 Gs',
       heroImg: 'assets/gen_5.jpg', promoScript: 'Promo de otoño', featTitle: 'Favoritos del otoño',
-      promoTitle: 'Ramo cálido + vela aromática', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 30,
+      promoTitle: 'Ramo cálido + vela aromática', promoSub: 'Dedicatoria', promoProduct: 30,
       flowers: ["Crisantemo", "Rosa", "Dalia", "Aster", "Caléndula", "Pensamiento", "Begonia", "Cosmos", "Hortensia", "Salvia", "Alstroemeria", "Camelia", "Clavel", "Margarita", "Verbena"], feat: [30, 31, 32, 33]
     },
     invierno: {
       key: 'invierno', name: 'Invierno', icon: 'snow', months: 'jun – ago', ink: '#22344a',
       heroLine1: 'Abrigá el', heroLine2: 'Invierno', heroTag: 'Caja premium negra', heroPrice: '200.000 Gs',
       heroImg: 'assets/gen_2.jpg', promoScript: 'Promo de invierno', featTitle: 'Favoritos del invierno',
-      promoTitle: 'Ramo grande + peluche', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 45,
+      promoTitle: 'Ramo grande + peluche', promoSub: 'Dedicatoria', promoProduct: 45,
       flowers: ["Rosa", "Camelia", "Ciclamen", "Pensamiento", "Prímula", "Begonia", "Caléndula", "Jazmín de invierno", "Azalea", "Narciso", "Tulipán", "Violeta", "Mahonia", "Helleboro", "Alhelí"], feat: [45, 46, 47, 48]
     }
   };
@@ -614,7 +614,7 @@
           '\n<strong>Total: ' + fmt(cartTotal()) + '</strong>\n\n';
 
         if (res.data.whatsappSent) {
-          pushMsg('bot', resumen + 'Ya le mandamos el pedido a la tienda por WhatsApp. En breve te confirman. ¡Gracias por elegir Margarita! ✿', true);
+          pushMsg('bot', resumen + '¡Ya recibimos tu pedido! En breve un asesor se comunicará contigo por WhatsApp para pedirte la ubicación, el método de pago y ultimar los detalles. ¡Gracias por elegir Margarita! ✿', true);
           state.cart = [];
           state.orderData = {};
           save();
