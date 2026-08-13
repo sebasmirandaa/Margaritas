@@ -1,22 +1,32 @@
-const Database = require('better-sqlite3');
-const path = require('path');
+require('dotenv').config();
+const { Pool } = require('pg');
 
-const dbPath = path.join(__dirname, 'temp.db');
-const db = new Database(dbPath);
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
 
-// Crear tabla de usuarios con rol
-db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password TEXT,
-    role TEXT DEFAULT 'customer'
-  )
-`);
+async function initDB() {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(255) UNIQUE,
+                password VARCHAR(255),
+                role VARCHAR(50) DEFAULT 'customer'
+            )
+        `);
 
-// Insertar usuarios iniciales
-const insert = db.prepare('INSERT OR IGNORE INTO users (username, password, role) VALUES (?, ?, ?)');
-insert.run('admin', 'admin', 'admin');
-insert.run('usuario1', 'usuario1', 'customer');
+        // Insert admin si no existe
+        const res = await pool.query('SELECT * FROM users WHERE username = $1', ['admin']);
+        if (res.rows.length === 0) {
+            await pool.query('INSERT INTO users (username, password, role) VALUES ($1, $2, $3)', ['admin', 'admin', 'admin']);
+        }
+    } catch (e) {
+        console.error("Error inicializando la base de datos:", e);
+    }
+}
 
-module.exports = db;
+initDB();
+
+module.exports = pool;

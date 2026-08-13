@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
@@ -6,8 +7,6 @@ const path = require('path');
 const { GoogleGenAI } = require('@google/genai');
 const jwt = require('jsonwebtoken');
 const db = require('./database');
-require('dotenv').config();
-
 const JWT_SECRET = process.env.JWT_SECRET || 'margaritas-admin-secret-key-123';
 const BOT_URL = process.env.BOT_URL || 'http://localhost:8081';
 // Número de la tienda que recibe las órdenes por WhatsApp
@@ -274,11 +273,11 @@ app.post('/api/checkout', async (req, res) => {
 });
 
 // === RUTAS DE AUTENTICACIÓN ===
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { username, password } = req.body || {};
     try {
-        const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');
-        const user = stmt.get(username, password);
+        const result = await db.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password]);
+        const user = result.rows[0];
         if (user) {
             const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '24h' });
             res.json({ success: true, token, role: user.role });
