@@ -202,7 +202,12 @@
   }
 
   function waLink(text) {
-    return 'https://api.whatsapp.com/send/?phone=' + TIENDA_WA + '&text=' + encodeURIComponent(text);
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var txt = encodeURIComponent(text);
+    if (isMobile) {
+      return 'whatsapp://send?phone=' + TIENDA_WA + '&text=' + txt;
+    }
+    return 'https://api.whatsapp.com/send/?phone=' + TIENDA_WA + '&text=' + txt;
   }
 
   function cartWaLink() {
