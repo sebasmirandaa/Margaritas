@@ -370,6 +370,9 @@
 
   function renderSeasonSheet() {
     var host = $('season-sheet');
+    // El header sticky crea su propio contexto de apilado: sin esta clase el
+    // panel queda por debajo del botón flotante del asistente.
+    document.body.classList.toggle('season-open', state.sheetOpen);
     if (!state.sheetOpen) { host.innerHTML = ''; $('season-chip').setAttribute('aria-expanded', 'false'); return; }
     $('season-chip').setAttribute('aria-expanded', 'true');
 
@@ -386,7 +389,9 @@
     }).join('');
 
     host.innerHTML =
+      '<button type="button" class="scrim season-scrim" data-close="season" aria-label="Cerrar"></button>' +
       '<div class="season-sheet" role="dialog" aria-label="Tema de temporada">' +
+        '<span class="season-grabber" aria-hidden="true"></span>' +
         '<h3>Tema de temporada</h3>' +
         '<p class="season-note">' + (isAuto
           ? 'Modo automático: la web eligió ' + autoName + ' según la fecha de hoy.'
@@ -701,6 +706,7 @@
         if (what === 'cart') closeCart();
         if (what === 'detail') { state.detailId = null; renderDetail(); }
         if (what === 'assistant') closeAssistant();
+        if (what === 'season') { state.sheetOpen = false; renderSeasonSheet(); }
         return;
       }
 
