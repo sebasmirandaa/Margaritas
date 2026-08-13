@@ -786,6 +786,16 @@
       pushMsg('user', txt);
       sendOrder(txt);
     });
+
+    // Auto-scroll al abrir el teclado en móviles
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function () {
+        if (state.assistantOpen) {
+          var body = $('assistant-body');
+          if (body) body.scrollTop = body.scrollHeight;
+        }
+      });
+    }
   }
 
   // ---------- Arranque ----------
