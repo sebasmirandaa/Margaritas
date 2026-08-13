@@ -235,6 +235,11 @@
     } catch (e) { /* ignoramos storage corrupto */ }
   }
 
+  function syncBodyLock() {
+    var isLocked = state.assistantOpen || state.cartOpen || state.detailId !== null || state.sheetOpen;
+    document.body.classList.toggle('locked', isLocked);
+  }
+
   // ---------- Toast ----------
   var toastTimer = null;
   function toast(msg) {
@@ -330,6 +335,7 @@
 
   function renderCart() {
     renderCartButton();
+    syncBodyLock();
     var host = $('cart-panel');
     if (!state.cartOpen) { host.innerHTML = ''; return; }
 
@@ -375,9 +381,8 @@
 
   function renderSeasonSheet() {
     var host = $('season-sheet');
-    // El header sticky crea su propio contexto de apilado: sin esta clase el
-    // panel queda por debajo del botón flotante del asistente.
     document.body.classList.toggle('season-open', state.sheetOpen);
+    syncBodyLock();
     if (!state.sheetOpen) { host.innerHTML = ''; $('season-chip').setAttribute('aria-expanded', 'false'); return; }
     $('season-chip').setAttribute('aria-expanded', 'true');
 
@@ -408,6 +413,7 @@
   }
 
   function renderDetail() {
+    syncBodyLock();
     var host = $('detail-panel');
     if (state.detailId === null) { host.innerHTML = ''; return; }
     var p = product(state.detailId);
@@ -440,6 +446,7 @@
 
   // ---------- Asistente ----------
   function renderAssistant() {
+    syncBodyLock();
     var host = $('assistant-panel');
     var fab = $('assistant-fab');
 
@@ -492,6 +499,7 @@
   }
 
   function renderAll() {
+    syncBodyLock();
     renderTheme();
     renderFeatured();
     renderFilters();
