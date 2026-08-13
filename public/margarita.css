@@ -231,6 +231,9 @@ body.season-open .site-header { z-index: 80; }
 .hero-copy { padding: 60px 0; }
 .hero-script {
   font-family: Pacifico, cursive; font-size: 44px;
+  /* Sin esto toma el margen de 1em del navegador y queda un hueco enorme
+     contra el título. Pacifico además trae mucho aire arriba y abajo. */
+  margin: 0; line-height: 1.02;
   color: var(--hero-script); text-shadow: 0 3px 0 rgba(0, 0, 0, .12);
 }
 .hero-title {
@@ -330,12 +333,17 @@ body.season-open .site-header { z-index: 80; }
   padding: 28px 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
   transition: background .4s ease;
 }
-.promo-script { font-family: Pacifico, cursive; font-size: 24px; color: var(--hero-script); }
+.promo-script {
+  font-family: Pacifico, cursive; font-size: 24px;
+  margin: 0; line-height: 1.02;
+  color: var(--hero-script);
+}
 .promo-title {
   font-family: 'Playfair Display', serif; font-weight: 800;
-  font-size: 30px; color: #fff; text-shadow: 0 2px 0 rgba(0, 0, 0, .15);
+  font-size: 30px; line-height: 1.1; margin: 2px 0 0;
+  color: #fff; text-shadow: 0 2px 0 rgba(0, 0, 0, .15);
 }
-.promo-sub { font-size: 14px; color: rgba(255, 255, 255, .85); margin-top: 2px; }
+.promo-sub { font-size: 14px; color: rgba(255, 255, 255, .85); margin: 6px 0 0; }
 
 /* ---------- Catálogo ---------- */
 .catalog-head {
