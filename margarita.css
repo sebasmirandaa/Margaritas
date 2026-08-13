@@ -107,6 +107,7 @@ button { font-family: inherit; }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes popIn   { from { opacity: 0; transform: translate(-50%, -50%) scale(.96); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes sheetUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
@@ -189,6 +190,12 @@ button { font-family: inherit; }
 }
 .season-note { font-size: 12px; color: #8a8078; margin: 2px 0 12px; }
 .season-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+/* Scrim y agarradera: solo en mobile, donde el panel es un bottom sheet */
+.season-scrim { display: none; }
+.season-grabber { display: none; }
+/* El header sticky es un contexto de apilado propio: mientras el panel está
+   abierto tiene que ganarle al botón flotante del asistente. */
+body.season-open .site-header { z-index: 80; }
 .season-card {
   border: 2.5px solid transparent; cursor: pointer;
   border-radius: 14px; padding: 10px; text-align: left;
@@ -613,7 +620,87 @@ button { font-family: inherit; }
   .season-sheet { right: -16px; width: 260px; max-width: calc(100vw - 32px); transform-origin: top right; }
 }
 
+/* ---------- Selector de temporada como bottom sheet ---------- */
+@media (max-width: 560px) {
+  .season-scrim { display: block; z-index: 59; }
+  .season-grabber {
+    display: block; width: 40px; height: 4px; border-radius: 999px;
+    background: rgba(0, 0, 0, .16); margin: 0 auto 12px;
+  }
+  .season-sheet {
+    position: fixed;
+    left: 10px; right: 10px; bottom: 10px;
+    top: auto; width: auto; max-width: none;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    padding: 12px 14px 16px;
+    border-radius: 22px;
+    z-index: 60;
+    animation: sheetUp .28s ease both;
+  }
+  .season-sheet h3 { font-size: 17px; }
+  .season-note { margin-bottom: 10px; }
+  .season-card { padding: 12px 10px; }
+  .season-auto { padding: 13px 10px; margin-top: 10px; }
+  /* El sheet ocupa el pie de pantalla: el FAB estorba */
+  body.season-open .assistant-fab { opacity: 0; pointer-events: none; }
+}
+
+@supports (height: 100dvh) {
+  @media (max-width: 560px) {
+    .season-sheet { max-height: calc(100dvh - 20px); }
+  }
+}
+
+/* ---------- Pantallas mínimas (Galaxy Fold ~280px, iPhone SE 320px) ---------- */
 @media (max-width: 420px) {
   .cart-btn span:not(.cart-count) { display: none; }
+  .cart-btn { padding: 9px 13px; }
   .hero-title { font-size: 38px; }
+}
+
+@media (max-width: 360px) {
+  .site-header { padding: 10px 12px; gap: 6px; }
+  .brand-name { font-size: 21px; }
+  .brand-mark { font-size: 14px; }
+  .main-nav { gap: 14px; }
+  .main-nav button { font-size: 12px; letter-spacing: 1px; }
+  .season-chip { padding: 8px 10px; font-size: 12.5px; gap: 5px; }
+  .season-chip .caret { font-size: 9px; }
+
+  .shell, .flowers-row, .block, .promo { padding-left: 14px; padding-right: 14px; }
+  .hero-inner { padding: 0 14px; }
+  .hero-script { font-size: 24px; }
+  .hero-title { font-size: 34px; }
+  .hero-price { font-size: 25px; }
+  .hero-tag { font-size: 13px; letter-spacing: 1.2px; }
+  .hero-cta { width: 100%; padding: 14px 20px; font-size: 15px; }
+  .hero-img { height: 200px; }
+
+  .section-title { font-size: 21px; }
+  .product-grid { gap: 10px; }
+  /* Títulos de 1 o 2 líneas dejaban precios y botones desalineados en la fila */
+  .p-card { display: flex; flex-direction: column; }
+  .p-body { padding: 11px 12px 13px; flex: 1; display: flex; flex-direction: column; }
+  .p-foot { margin-top: auto; padding-top: 6px; }
+  .p-title { font-size: 13.5px; }
+  .p-price { font-size: 15px; }
+  .p-foot { gap: 6px; }
+  .p-add { width: 38px; height: 38px; font-size: 17px; }
+  .promo-title { font-size: 19px; }
+  .promo-script { font-size: 20px; }
+
+  .assistant-fab { font-size: 13px; padding: 12px 15px; right: 12px; bottom: 12px; }
+  .site-footer { padding: 34px 16px 24px; }
+}
+
+@media (max-width: 320px) {
+  /* El precio y el botón + no entran lado a lado: los apilamos */
+  .p-foot { flex-direction: column; align-items: flex-start; }
+  .p-add { align-self: flex-end; margin-top: -6px; }
+  .hero-title { font-size: 30px; }
+  .season-grid { gap: 6px; }
+  .season-card { padding: 10px 8px; }
+  .season-card .nm { font-size: 12.5px; }
+  .season-card .mo { font-size: 10px; }
 }
