@@ -565,7 +565,7 @@ body.season-open .site-header { z-index: 80; }
 .assistant-foot input {
   flex: 1; border: 1px solid rgba(0, 0, 0, .08); outline: none;
   background: #fff; border-radius: 999px; padding: 0 16px; height: 46px;
-  font-family: inherit; font-size: 13.5px; color: #3a2e28;
+  font-family: inherit; font-size: 16px; color: #3a2e28;
 }
 .assistant-foot input:focus { border-color: var(--accent); }
 .assistant-send {
