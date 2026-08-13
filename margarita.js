@@ -8,7 +8,7 @@
   'use strict';
 
   // ---------- Config ----------
-  var TIENDA_WA = '595983314520';
+  var TIENDA_WA = '595971140350';
   var API_BASE = (location.protocol === 'file:') ? 'http://localhost:8080' : '';
   var LS_CART = 'margarita_cart';
   var LS_SEASON = 'margarita_season';
@@ -43,44 +43,97 @@
   var SEASONS = {
     primavera: {
       key: 'primavera', name: 'Primavera', icon: 'flower', months: 'sep – nov', ink: '#4a2a38',
-      heroLine1: 'Llegó la', heroLine2: 'Primavera', heroTag: 'Peonías de primavera', heroPrice: '145.000 Gs',
-      heroImg: 'assets/gen_1.jpg', promoScript: 'Promo de primavera', featTitle: 'Favoritos de primavera',
-      flowers: ['Lapacho rosado', 'Jazmín paraguayo', 'Tulipanes', 'Margaritas'], feat: [1, 6, 5, 9]
+      heroLine1: 'Llegó la', heroLine2: 'Primavera', heroTag: 'Rosas amarillas', heroPrice: '150.000 Gs',
+      heroImg: 'assets/f-amarillas.png', promoScript: 'Tendencia amarilla', featTitle: 'Especial Flores Amarillas',
+      promoTitle: 'Ramo primaveral + bombones', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 0,
+      flowers: ["Rosa", "Tulipán", "Peonía", "Fresia", "Hortensia", "Margarita", "Jazmín", "Azalea", "Iris", "Lirio", "Petunia", "Caléndula", "Girasol", "Gerbera", "Narciso"], feat: [0, 1, 2, 3]
     },
     verano: {
       key: 'verano', name: 'Verano', icon: 'sun', months: 'dic – feb', ink: '#123a4a',
       heroLine1: 'Colección de', heroLine2: 'Verano', heroTag: 'Girasoles y margaritas', heroPrice: '110.000 Gs',
       heroImg: 'assets/gen_3.jpg', promoScript: 'Promo de verano', featTitle: 'Favoritos del verano',
-      flowers: ['Girasoles', 'Mburucuyá', 'Hibisco', 'Margaritas'], feat: [2, 7, 3, 5]
+      promoTitle: 'Arreglo de verano + florero', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 15,
+      flowers: ["Girasol", "Rosa", "Hibisco", "Hortensia", "Zinnia", "Dalia", "Lavanda", "Buganvilla", "Cosmos", "Lirio", "Celosia", "Jazmín", "Portulaca", "Geranio", "Gazania"], feat: [15, 16, 17, 18]
     },
     otono: {
       key: 'otono', name: 'Otoño', icon: 'leaf', months: 'mar – may', ink: '#4a3220',
       heroLine1: 'Colores de', heroLine2: 'Otoño', heroTag: 'Ramo silvestre pastel', heroPrice: '95.000 Gs',
       heroImg: 'assets/gen_5.jpg', promoScript: 'Promo de otoño', featTitle: 'Favoritos del otoño',
-      flowers: ['Rosas amarillas', 'Crisantemos', 'Follaje seco', 'Girasoles'], feat: [3, 8, 4, 2]
+      promoTitle: 'Ramo cálido + vela aromática', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 30,
+      flowers: ["Crisantemo", "Rosa", "Dalia", "Aster", "Caléndula", "Pensamiento", "Begonia", "Cosmos", "Hortensia", "Salvia", "Alstroemeria", "Camelia", "Clavel", "Margarita", "Verbena"], feat: [30, 31, 32, 33]
     },
     invierno: {
       key: 'invierno', name: 'Invierno', icon: 'snow', months: 'jun – ago', ink: '#22344a',
       heroLine1: 'Abrigá el', heroLine2: 'Invierno', heroTag: 'Caja premium negra', heroPrice: '200.000 Gs',
       heroImg: 'assets/gen_2.jpg', promoScript: 'Promo de invierno', featTitle: 'Favoritos del invierno',
-      flowers: ['Rosas rojas', 'Orquídeas', 'Gypsophila', 'Tulipanes'], feat: [0, 4, 8, 6]
+      promoTitle: 'Ramo grande + peluche', promoSub: 'Incluye dedicatoria escrita a mano', promoProduct: 45,
+      flowers: ["Rosa", "Camelia", "Ciclamen", "Pensamiento", "Prímula", "Begonia", "Caléndula", "Jazmín de invierno", "Azalea", "Narciso", "Tulipán", "Violeta", "Mahonia", "Helleboro", "Alhelí"], feat: [45, 46, 47, 48]
     }
   };
   var SEASON_ORDER = ['primavera', 'verano', 'otono', 'invierno'];
 
   // ---------- Catálogo ----------
   var PRODUCTS = [
-    { id: 0, title: 'Rosas Rojas Clásico', price: 120000, img: 'assets/f-rojas.png', tag: 'Invierno', desc: 'Cuatro rosas rojas premium con gypsophila y envoltorio crema, atadas con moño rojo. El clásico que nunca falla.' },
-    { id: 1, title: 'Peonías de Primavera', price: 145000, img: 'assets/gen_1.jpg', tag: 'Primavera', desc: 'Peonías rosadas frescas en papel kraft, suaves y perfumadas. Edición limitada de primavera.' },
-    { id: 2, title: 'Girasoles del Sol', price: 120000, img: 'assets/f-girasol.png', tag: 'Verano', desc: 'Girasoles gigantes con gypsophila y cinta rosada. Pura energía de verano paraguayo.' },
-    { id: 3, title: 'Rosas Amarillas', price: 150000, img: 'assets/f-amarillas.png', tag: 'Otoño', desc: 'Ramo de rosas amarillas con flores azules silvestres y envoltorio crema. Cálido como una tarde de otoño.' },
-    { id: 4, title: 'Caja Premium Negra', price: 200000, img: 'assets/gen_2.jpg', tag: 'Invierno', desc: 'Rosas rojas en nuestra icónica caja negra mate. Presentación de lujo para ocasiones especiales.' },
-    { id: 5, title: 'Tulipanes Rosados', price: 135000, img: 'assets/gen_6.jpg', tag: 'Primavera', desc: 'Tulipanes rosados frescos en florero de vidrio. Delicadeza pura para alegrar cualquier espacio.' },
-    { id: 6, title: 'Ramo Silvestre Pastel', price: 95000, img: 'assets/gen_5.jpg', tag: 'Primavera', desc: 'Mezcla silvestre en tonos pastel con lavanda y follaje fresco, envuelto en papel rosado.' },
-    { id: 7, title: 'Girasoles y Margaritas', price: 110000, img: 'assets/gen_3.jpg', tag: 'Verano', desc: 'La combinación más alegre: girasoles y margaritas blancas en papel crema.' },
-    { id: 8, title: 'Mariposas Doradas', price: 180000, img: 'assets/ig-ramo-mariposas.png', tag: 'Otoño', desc: 'Cincuenta rosas rojas coronadas con mariposas doradas. Nuestro ramo más fotografiado.' },
-    { id: 9, title: 'Orquídea Blanca', price: 250000, img: 'assets/gen_4.jpg', tag: 'Todo el año', desc: 'Orquídea phalaenopsis blanca en maceta de cerámica. Elegancia que dura meses.' },
-    { id: 10, title: 'Letra Personalizada', price: 220000, img: 'assets/f-rojas-letra.png', tag: 'Invierno', desc: 'Rosas rojas con la inicial de esa persona especial, decorada con perlas y gypsophila.' }
+    { id: 0, title: 'Rosa de Primavera', price: 100000, img: 'assets/gen_1.jpg', tag: 'Primavera', desc: 'Hermosa flor de Rosa seleccionada para la temporada de Primavera.' },
+    { id: 1, title: 'Tulipán de Primavera', price: 100000, img: 'assets/gen_2.jpg', tag: 'Primavera', desc: 'Hermosa flor de Tulipán seleccionada para la temporada de Primavera.' },
+    { id: 2, title: 'Peonía de Primavera', price: 100000, img: 'assets/gen_3.jpg', tag: 'Primavera', desc: 'Hermosa flor de Peonía seleccionada para la temporada de Primavera.' },
+    { id: 3, title: 'Fresia de Primavera', price: 100000, img: 'assets/gen_4.jpg', tag: 'Primavera', desc: 'Hermosa flor de Fresia seleccionada para la temporada de Primavera.' },
+    { id: 4, title: 'Hortensia de Primavera', price: 100000, img: 'assets/gen_5.jpg', tag: 'Primavera', desc: 'Hermosa flor de Hortensia seleccionada para la temporada de Primavera.' },
+    { id: 5, title: 'Margarita de Primavera', price: 100000, img: 'assets/gen_6.jpg', tag: 'Primavera', desc: 'Hermosa flor de Margarita seleccionada para la temporada de Primavera.' },
+    { id: 6, title: 'Jazmín de Primavera', price: 100000, img: 'assets/f-rojas.png', tag: 'Primavera', desc: 'Hermosa flor de Jazmín seleccionada para la temporada de Primavera.' },
+    { id: 7, title: 'Azalea de Primavera', price: 100000, img: 'assets/f-amarillas.png', tag: 'Primavera', desc: 'Hermosa flor de Azalea seleccionada para la temporada de Primavera.' },
+    { id: 8, title: 'Iris de Primavera', price: 100000, img: 'assets/f-girasol.png', tag: 'Primavera', desc: 'Hermosa flor de Iris seleccionada para la temporada de Primavera.' },
+    { id: 9, title: 'Lirio de Primavera', price: 100000, img: 'assets/gen_1.jpg', tag: 'Primavera', desc: 'Hermosa flor de Lirio seleccionada para la temporada de Primavera.' },
+    { id: 10, title: 'Petunia de Primavera', price: 100000, img: 'assets/gen_2.jpg', tag: 'Primavera', desc: 'Hermosa flor de Petunia seleccionada para la temporada de Primavera.' },
+    { id: 11, title: 'Caléndula de Primavera', price: 100000, img: 'assets/gen_3.jpg', tag: 'Primavera', desc: 'Hermosa flor de Caléndula seleccionada para la temporada de Primavera.' },
+    { id: 12, title: 'Girasol de Primavera', price: 100000, img: 'assets/gen_4.jpg', tag: 'Primavera', desc: 'Hermosa flor de Girasol seleccionada para la temporada de Primavera.' },
+    { id: 13, title: 'Gerbera de Primavera', price: 100000, img: 'assets/gen_5.jpg', tag: 'Primavera', desc: 'Hermosa flor de Gerbera seleccionada para la temporada de Primavera.' },
+    { id: 14, title: 'Narciso de Primavera', price: 100000, img: 'assets/gen_6.jpg', tag: 'Primavera', desc: 'Hermosa flor de Narciso seleccionada para la temporada de Primavera.' },
+    { id: 15, title: 'Girasol de Verano', price: 100000, img: 'assets/f-rojas.png', tag: 'Verano', desc: 'Hermosa flor de Girasol seleccionada para la temporada de Verano.' },
+    { id: 16, title: 'Rosa de Verano', price: 100000, img: 'assets/f-amarillas.png', tag: 'Verano', desc: 'Hermosa flor de Rosa seleccionada para la temporada de Verano.' },
+    { id: 17, title: 'Hibisco de Verano', price: 100000, img: 'assets/f-girasol.png', tag: 'Verano', desc: 'Hermosa flor de Hibisco seleccionada para la temporada de Verano.' },
+    { id: 18, title: 'Hortensia de Verano', price: 100000, img: 'assets/gen_1.jpg', tag: 'Verano', desc: 'Hermosa flor de Hortensia seleccionada para la temporada de Verano.' },
+    { id: 19, title: 'Zinnia de Verano', price: 100000, img: 'assets/gen_2.jpg', tag: 'Verano', desc: 'Hermosa flor de Zinnia seleccionada para la temporada de Verano.' },
+    { id: 20, title: 'Dalia de Verano', price: 100000, img: 'assets/gen_3.jpg', tag: 'Verano', desc: 'Hermosa flor de Dalia seleccionada para la temporada de Verano.' },
+    { id: 21, title: 'Lavanda de Verano', price: 100000, img: 'assets/gen_4.jpg', tag: 'Verano', desc: 'Hermosa flor de Lavanda seleccionada para la temporada de Verano.' },
+    { id: 22, title: 'Buganvilla de Verano', price: 100000, img: 'assets/gen_5.jpg', tag: 'Verano', desc: 'Hermosa flor de Buganvilla seleccionada para la temporada de Verano.' },
+    { id: 23, title: 'Cosmos de Verano', price: 100000, img: 'assets/gen_6.jpg', tag: 'Verano', desc: 'Hermosa flor de Cosmos seleccionada para la temporada de Verano.' },
+    { id: 24, title: 'Lirio de Verano', price: 100000, img: 'assets/f-rojas.png', tag: 'Verano', desc: 'Hermosa flor de Lirio seleccionada para la temporada de Verano.' },
+    { id: 25, title: 'Celosia de Verano', price: 100000, img: 'assets/f-amarillas.png', tag: 'Verano', desc: 'Hermosa flor de Celosia seleccionada para la temporada de Verano.' },
+    { id: 26, title: 'Jazmín de Verano', price: 100000, img: 'assets/f-girasol.png', tag: 'Verano', desc: 'Hermosa flor de Jazmín seleccionada para la temporada de Verano.' },
+    { id: 27, title: 'Portulaca de Verano', price: 100000, img: 'assets/gen_1.jpg', tag: 'Verano', desc: 'Hermosa flor de Portulaca seleccionada para la temporada de Verano.' },
+    { id: 28, title: 'Geranio de Verano', price: 100000, img: 'assets/gen_2.jpg', tag: 'Verano', desc: 'Hermosa flor de Geranio seleccionada para la temporada de Verano.' },
+    { id: 29, title: 'Gazania de Verano', price: 100000, img: 'assets/gen_3.jpg', tag: 'Verano', desc: 'Hermosa flor de Gazania seleccionada para la temporada de Verano.' },
+    { id: 30, title: 'Crisantemo de Otoño', price: 100000, img: 'assets/gen_4.jpg', tag: 'Otoño', desc: 'Hermosa flor de Crisantemo seleccionada para la temporada de Otoño.' },
+    { id: 31, title: 'Rosa de Otoño', price: 100000, img: 'assets/gen_5.jpg', tag: 'Otoño', desc: 'Hermosa flor de Rosa seleccionada para la temporada de Otoño.' },
+    { id: 32, title: 'Dalia de Otoño', price: 100000, img: 'assets/gen_6.jpg', tag: 'Otoño', desc: 'Hermosa flor de Dalia seleccionada para la temporada de Otoño.' },
+    { id: 33, title: 'Aster de Otoño', price: 100000, img: 'assets/f-rojas.png', tag: 'Otoño', desc: 'Hermosa flor de Aster seleccionada para la temporada de Otoño.' },
+    { id: 34, title: 'Caléndula de Otoño', price: 100000, img: 'assets/f-amarillas.png', tag: 'Otoño', desc: 'Hermosa flor de Caléndula seleccionada para la temporada de Otoño.' },
+    { id: 35, title: 'Pensamiento de Otoño', price: 100000, img: 'assets/f-girasol.png', tag: 'Otoño', desc: 'Hermosa flor de Pensamiento seleccionada para la temporada de Otoño.' },
+    { id: 36, title: 'Begonia de Otoño', price: 100000, img: 'assets/gen_1.jpg', tag: 'Otoño', desc: 'Hermosa flor de Begonia seleccionada para la temporada de Otoño.' },
+    { id: 37, title: 'Cosmos de Otoño', price: 100000, img: 'assets/gen_2.jpg', tag: 'Otoño', desc: 'Hermosa flor de Cosmos seleccionada para la temporada de Otoño.' },
+    { id: 38, title: 'Hortensia de Otoño', price: 100000, img: 'assets/gen_3.jpg', tag: 'Otoño', desc: 'Hermosa flor de Hortensia seleccionada para la temporada de Otoño.' },
+    { id: 39, title: 'Salvia de Otoño', price: 100000, img: 'assets/gen_4.jpg', tag: 'Otoño', desc: 'Hermosa flor de Salvia seleccionada para la temporada de Otoño.' },
+    { id: 40, title: 'Alstroemeria de Otoño', price: 100000, img: 'assets/gen_5.jpg', tag: 'Otoño', desc: 'Hermosa flor de Alstroemeria seleccionada para la temporada de Otoño.' },
+    { id: 41, title: 'Camelia de Otoño', price: 100000, img: 'assets/gen_6.jpg', tag: 'Otoño', desc: 'Hermosa flor de Camelia seleccionada para la temporada de Otoño.' },
+    { id: 42, title: 'Clavel de Otoño', price: 100000, img: 'assets/f-rojas.png', tag: 'Otoño', desc: 'Hermosa flor de Clavel seleccionada para la temporada de Otoño.' },
+    { id: 43, title: 'Margarita de Otoño', price: 100000, img: 'assets/f-amarillas.png', tag: 'Otoño', desc: 'Hermosa flor de Margarita seleccionada para la temporada de Otoño.' },
+    { id: 44, title: 'Verbena de Otoño', price: 100000, img: 'assets/f-girasol.png', tag: 'Otoño', desc: 'Hermosa flor de Verbena seleccionada para la temporada de Otoño.' },
+    { id: 45, title: 'Rosa de Invierno', price: 100000, img: 'assets/gen_1.jpg', tag: 'Invierno', desc: 'Hermosa flor de Rosa seleccionada para la temporada de Invierno.' },
+    { id: 46, title: 'Camelia de Invierno', price: 100000, img: 'assets/gen_2.jpg', tag: 'Invierno', desc: 'Hermosa flor de Camelia seleccionada para la temporada de Invierno.' },
+    { id: 47, title: 'Ciclamen de Invierno', price: 100000, img: 'assets/gen_3.jpg', tag: 'Invierno', desc: 'Hermosa flor de Ciclamen seleccionada para la temporada de Invierno.' },
+    { id: 48, title: 'Pensamiento de Invierno', price: 100000, img: 'assets/gen_4.jpg', tag: 'Invierno', desc: 'Hermosa flor de Pensamiento seleccionada para la temporada de Invierno.' },
+    { id: 49, title: 'Prímula de Invierno', price: 100000, img: 'assets/gen_5.jpg', tag: 'Invierno', desc: 'Hermosa flor de Prímula seleccionada para la temporada de Invierno.' },
+    { id: 50, title: 'Begonia de Invierno', price: 100000, img: 'assets/gen_6.jpg', tag: 'Invierno', desc: 'Hermosa flor de Begonia seleccionada para la temporada de Invierno.' },
+    { id: 51, title: 'Caléndula de Invierno', price: 100000, img: 'assets/f-rojas.png', tag: 'Invierno', desc: 'Hermosa flor de Caléndula seleccionada para la temporada de Invierno.' },
+    { id: 52, title: 'Jazmín de invierno', price: 100000, img: 'assets/f-amarillas.png', tag: 'Invierno', desc: 'Hermosa flor de Jazmín de invierno seleccionada para la temporada de Invierno.' },
+    { id: 53, title: 'Azalea de Invierno', price: 100000, img: 'assets/f-girasol.png', tag: 'Invierno', desc: 'Hermosa flor de Azalea seleccionada para la temporada de Invierno.' },
+    { id: 54, title: 'Narciso de Invierno', price: 100000, img: 'assets/gen_1.jpg', tag: 'Invierno', desc: 'Hermosa flor de Narciso seleccionada para la temporada de Invierno.' },
+    { id: 55, title: 'Tulipán de Invierno', price: 100000, img: 'assets/gen_2.jpg', tag: 'Invierno', desc: 'Hermosa flor de Tulipán seleccionada para la temporada de Invierno.' },
+    { id: 56, title: 'Violeta de Invierno', price: 100000, img: 'assets/gen_3.jpg', tag: 'Invierno', desc: 'Hermosa flor de Violeta seleccionada para la temporada de Invierno.' },
+    { id: 57, title: 'Mahonia de Invierno', price: 100000, img: 'assets/gen_4.jpg', tag: 'Invierno', desc: 'Hermosa flor de Mahonia seleccionada para la temporada de Invierno.' },
+    { id: 58, title: 'Helleboro de Invierno', price: 100000, img: 'assets/gen_5.jpg', tag: 'Invierno', desc: 'Hermosa flor de Helleboro seleccionada para la temporada de Invierno.' },
+    { id: 59, title: 'Alhelí de Invierno', price: 100000, img: 'assets/gen_6.jpg', tag: 'Invierno', desc: 'Hermosa flor de Alhelí seleccionada para la temporada de Invierno.' }
   ];
 
   var FILTERS = [
@@ -207,11 +260,18 @@
     $('hero-img').setAttribute('role', 'img');
     $('hero-img').setAttribute('aria-label', th.heroTag);
 
-    $('promo-script').textContent = th.promoScript;
-    $('feat-title').textContent = th.featTitle;
+    if ($('promo-script')) {
+      $('promo-script').textContent = th.promoScript;
+      if ($('promo-title')) $('promo-title').textContent = th.promoTitle || '';
+      if ($('promo-sub')) $('promo-sub').textContent = th.promoSub || '';
+      if ($('promo-card')) $('promo-card').setAttribute('data-open', th.promoProduct !== undefined ? th.promoProduct : '');
+    }
+    if ($('feat-title')) $('feat-title').textContent = th.featTitle;
 
     $('flowers-chips').innerHTML = th.flowers.map(function (f) {
-      return '<span class="chip">' + esc(f) + '</span>';
+      var p = PRODUCTS.find(function(prod) { return prod.title === f + ' de ' + th.name; });
+      var props = p ? ' data-open="' + p.id + '" tabindex="0" role="button" aria-label="Ver ' + esc(p.title) + '"' : '';
+      return '<span class="chip"' + props + '>' + esc(f) + '</span>';
     }).join('');
 
     document.title = 'Margarita Florería · ' + th.name + ' en Asunción';

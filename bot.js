@@ -57,9 +57,40 @@ app.post('/api/bot/send', async (req, res) => {
     }
 });
 
+const fs = require('fs');
+
 // Endpoint para leer el estado y QR
 app.get('/api/bot/status', (req, res) => {
     res.json({ status: botStatus, qrUrl: currentQRBase64 });
+});
+
+// Endpoint para desconectar el bot
+app.post('/api/bot/disconnect', async (req, res) => {
+    try {
+        if (sock) {
+            sock.ev.removeAllListeners('connection.update');
+            sock.ev.removeAllListeners('creds.update');
+            sock.logout();
+            sock.end(new Error('Admin disconnected'));
+            sock = null;
+        }
+        
+        botStatus = 'disconnected';
+        currentQRBase64 = null;
+        
+        // Borrar credenciales para forzar nuevo QR
+        if (fs.existsSync('auth_info_baileys')) {
+            fs.rmSync('auth_info_baileys', { recursive: true, force: true });
+        }
+        
+        console.log('Bot desconectado manualmente por admin. Reiniciando...');
+        startBot();
+        
+        res.json({ success: true, message: 'Bot desconectado. Esperando nuevo QR.' });
+    } catch (error) {
+        console.error("Error al desconectar el bot:", error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Endpoint raíz para evitar "Cannot GET /" en el navegador

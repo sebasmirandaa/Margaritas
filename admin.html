@@ -47,7 +47,11 @@
             <p style="font-size: 0.9rem; margin-bottom:10px;">Escanea este código con el WhatsApp del local para vincular el bot de ventas:</p>
             <img id="qr-img" src="" alt="Código QR">
         </div>
-        <button onclick="logout()" style="margin-top: 20px; background: #dc3545;">Cerrar Sesión</button>
+        
+        <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button id="disconnect-btn" onclick="disconnectBot()" style="background: #ff9800; display: none;">Desconectar y Escanear Nuevo QR</button>
+            <button onclick="logout()" style="background: #dc3545;">Cerrar Sesión</button>
+        </div>
     </div>
 
     <script src="admin.js"></script>

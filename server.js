@@ -8,7 +8,7 @@ require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET || 'margaritas-admin-secret-key-123';
 const BOT_URL = process.env.BOT_URL || 'http://localhost:8081';
 // Número de la tienda que recibe las órdenes por WhatsApp
-const NUMERO_VENTAS = (process.env.NUMERO_VENTAS || '595994404080') + '@s.whatsapp.net';
+const NUMERO_VENTAS = (process.env.NUMERO_VENTAS || '595971140350') + '@s.whatsapp.net';
 
 const app = express();
 app.use(cors());
@@ -306,6 +306,38 @@ app.get('/api/admin/status', async (req, res) => {
         res.status(401).json({ error: 'Token inválido' });
     }
 });
+
+app.post('/api/admin/bot/disconnect', async (req, res) => {
+    const auth = req.headers.authorization;
+    if (!auth || !auth.startsWith('Bearer ')) return res.status(401).json({ error: 'No autorizado' });
+
+    try {
+        jwt.verify(auth.split(' ')[1], JWT_SECRET);
+
+        try {
+            const botRes = await fetch(`${BOT_URL}/api/bot/disconnect`, { method: 'POST' });
+            const botData = await botRes.json();
+            res.json(botData);
+        } catch (botError) {
+            res.status(503).json({ error: 'Servicio bot no disponible' });
+        }
+    } catch (e) {
+        res.status(401).json({ error: 'Token inválido' });
+    }
+});
+// === AUTO-PING PARA RENDER ===
+// Render apaga los servidores web gratuitos tras 15 minutos sin tráfico.
+// Hacemos un autollamado cada 14 minutos para mantenerlo despierto.
+const https = require('https');
+const selfUrl = process.env.RENDER_EXTERNAL_URL;
+if (selfUrl) {
+    setInterval(() => {
+        https.get(selfUrl).on('error', (err) => {
+            console.error('Error auto-ping:', err.message);
+        });
+        console.log(`[Keep-Alive] Ping interno enviado a ${selfUrl}`);
+    }, 14 * 60 * 1000); // 14 minutos
+}
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
