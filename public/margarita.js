@@ -202,7 +202,7 @@
   }
 
   function waLink(text) {
-    return 'https://wa.me/' + TIENDA_WA + '?text=' + encodeURIComponent(text);
+    return 'https://api.whatsapp.com/send/?phone=' + TIENDA_WA + '&text=' + encodeURIComponent(text);
   }
 
   function cartWaLink() {
