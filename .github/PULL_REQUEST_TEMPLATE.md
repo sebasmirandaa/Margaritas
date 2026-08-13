@@ -9,10 +9,10 @@
 1. [Ej: `node server.js`]
 2. [Pasos para reproducir]
 
-| Ancho / Resolución | Qué mirar |
-|--------------------|-----------|
-| 320x640 (Móvil)   | [Ej: El panel entra completo, sin romper el canvas] |
-| Desktop           | [Ej: El menú despliega alineado a la derecha] |
+*(Si aplica a UI)*
+| Resolución | Qué mirar |
+|------------|-----------|
+| Móvil / PC | [Detalle a verificar] |
 
 ## Verificación hecha
 - [ ] Capturas tomadas para el reporte QA.
