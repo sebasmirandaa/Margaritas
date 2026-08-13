@@ -346,3 +346,19 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Servidor Express corriendo en http://localhost:${PORT}`);
 });
+
+// === AUTO-INICIO DEL BOT ===
+// Iniciar bot.js como proceso hijo para garantizar que siempre corra
+// incluso si Render ejecuta "node server.js" en lugar de "npm start"
+const { fork } = require('child_process');
+
+function startBotProcess() {
+    console.log('[Orquestador] Iniciando bot.js como proceso hijo...');
+    const botProcess = fork(path.join(__dirname, 'bot.js'));
+
+    botProcess.on('exit', (code) => {
+        console.warn(`[Orquestador] El proceso del bot se cerró (código ${code}). Reiniciando en 5 segundos...`);
+        setTimeout(startBotProcess, 5000);
+    });
+}
+startBotProcess();
