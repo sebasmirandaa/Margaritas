@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const https = require('https');
+const path = require('path');
 const { GoogleGenAI } = require('@google/genai');
 const jwt = require('jsonwebtoken');
 const db = require('./database');
@@ -13,7 +16,7 @@ const NUMERO_VENTAS = (process.env.NUMERO_VENTAS || '595971140350') + '@s.whatsa
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('.')); // Servir HTML estático
+app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML estático
 
 // Redirigir /admin a admin.html
 app.get('/admin', (req, res) => {
@@ -328,7 +331,7 @@ app.post('/api/admin/bot/disconnect', async (req, res) => {
 // === AUTO-PING PARA RENDER ===
 // Render apaga los servidores web gratuitos tras 15 minutos sin tráfico.
 // Hacemos un autollamado cada 14 minutos para mantenerlo despierto.
-const https = require('https');
+
 const selfUrl = process.env.RENDER_EXTERNAL_URL;
 if (selfUrl) {
     setInterval(() => {
