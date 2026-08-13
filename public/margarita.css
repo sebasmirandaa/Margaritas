@@ -534,7 +534,7 @@ body.season-open .site-header { z-index: 80; }
 .assistant-head .icon-btn { margin-left: auto; }
 
 .assistant-body {
-  flex: 1; overflow-y: auto; padding: 14px 16px;
+  flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 16px;
   display: flex; flex-direction: column; gap: 10px;
 }
 .msg {
