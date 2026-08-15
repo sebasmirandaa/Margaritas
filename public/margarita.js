@@ -262,7 +262,7 @@
       '<div class="p-body">' +
         '<h3 class="p-title">' + esc(p.title) + '</h3>' +
         '<div class="p-foot">' +
-          '<span class="p-price">' + fmt(p.price) + '</span>' +
+          '<span class="p-price">' + (p.oldPrice ? '<span style="text-decoration:line-through; color:var(--txt-light); font-size:0.8rem; margin-right:5px;">' + fmt(p.oldPrice) + '</span>' : '') + fmt(p.price) + '</span>' +
           '<button class="p-add" data-add="' + p.id + '" aria-label="Agregar ' + esc(p.title) + ' al carrito">+</button>' +
         '</div>' +
       '</div>' +
@@ -393,7 +393,7 @@
         '<div class="detail-body">' +
           '<span class="detail-tag">' + esc(p.tag) + '</span>' +
           '<h2 class="detail-title">' + esc(p.title) + '</h2>' +
-          '<div class="detail-price">' + fmt(p.price) + '</div>' +
+          '<div class="detail-price">' + (p.oldPrice ? '<span style="text-decoration:line-through; color:var(--txt-light); font-size:1rem; margin-right:8px;">' + fmt(p.oldPrice) + '</span>' : '') + fmt(p.price) + '</div>' +
           '<p class="detail-desc">' + esc(p.desc) + '</p>' +
           '<div class="detail-chips">' +
             '<span class="chip">Flores frescas</span>' +

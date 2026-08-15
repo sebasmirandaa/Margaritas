@@ -206,6 +206,7 @@ if (token) mostrarPanel();
   if (btnNuevo) btnNuevo.addEventListener('click', () => {
       $('#prod-id').value = '';
       $('#prod-title').value = '';
+      $('#prod-old-price').value = '';
       $('#prod-price').value = '';
       $('#prod-desc').value = '';
       $('#prod-img').value = '';
@@ -224,6 +225,7 @@ if (token) mostrarPanel();
       if (!p) return;
       $('#prod-id').value = p.id;
       $('#prod-title').value = p.title || '';
+      $('#prod-old-price').value = p.oldPrice || '';
       $('#prod-price').value = p.price || '';
       $('#prod-desc').value = p.desc || '';
       $('#prod-tag').value = p.tag || 'Primavera';
@@ -254,6 +256,8 @@ if (token) mostrarPanel();
   if (btnGuardar) btnGuardar.addEventListener('click', async () => {
       const idStr = $('#prod-id').value;
       const title = $('#prod-title').value.trim();
+      const oldPriceRaw = $('#prod-old-price').value;
+      const oldPrice = oldPriceRaw ? parseInt(oldPriceRaw, 10) : null;
       const price = parseInt($('#prod-price').value, 10);
       const desc = $('#prod-desc').value.trim();
       const tag = $('#prod-tag').value;
@@ -262,6 +266,7 @@ if (token) mostrarPanel();
       if (!title || !price) return window.aviso('Nombre y precio requeridos', 'error');
 
       const product = { title, price, desc, tag };
+      if (oldPrice) product.oldPrice = oldPrice;
       if (idStr) product.id = parseInt(idStr, 10);
 
       // Leer imagen a base64
