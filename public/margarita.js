@@ -340,6 +340,14 @@
     img: "assets/primavera_peonias.png",
     tag: "Primavera",
     desc: "Voluptuoso y elegante ramo en tonos rosados y durazno, con peonías y ranúnculos frescos."
+  },
+  {
+    id: 34,
+    title: "Ramo de Peonías Corales",
+    price: 180000,
+    img: "assets/verano_peonias.jpg",
+    tag: "Verano",
+    desc: "Voluminoso ramo de peonías y ranúnculos en vibrantes tonos coral, perfecto para el calor del verano."
   }
 ];
 
