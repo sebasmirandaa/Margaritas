@@ -44,6 +44,7 @@
         <aside class="lateral">
             <h1 class="marca">Margaritas<span>.</span></h1>
             <button class="nav-item activo" data-seccion="whatsapp"><span class="ico">💬</span> WhatsApp</button>
+            <button class="nav-item" data-seccion="productos"><span class="ico">💐</span> Productos</button>
             <div class="lateral-pie">
                 <button class="btn btn--peligro btn--ancho" id="logout-btn">Cerrar sesión</button>
             </div>
@@ -67,6 +68,60 @@
                     <div class="acciones">
                         <button class="btn btn--fantasma" id="disconnect-btn" style="display:none;">Desconectar y escanear nuevo QR</button>
                     </div>
+                </div>
+            </section>
+
+        
+            <!-- ---------- Productos ---------- -->
+            <section class="seccion" id="seccion-productos">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <div>
+                        <h2 class="titulo-seccion">Catálogo</h2>
+                        <p class="bajada">Administrar ramos, precios y fotos.</p>
+                    </div>
+                    <button class="btn" id="btn-nuevo-prod">+ Nuevo Producto</button>
+                </div>
+
+                <!-- Formulario Modal Nuevo/Editar -->
+                <div class="tarjeta" id="form-producto" style="display:none; margin-bottom:30px;">
+                    <h3 style="margin-bottom:15px; font-size:1.1rem" id="form-prod-titulo">Agregar Producto</h3>
+                    <input type="hidden" id="prod-id">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:15px;">
+                        <div class="campo">
+                            <label>Nombre del Ramo</label>
+                            <input type="text" id="prod-title" placeholder="Ej: Rosas Rojas">
+                        </div>
+                        <div class="campo">
+                            <label>Precio (Gs)</label>
+                            <input type="number" id="prod-price" placeholder="Ej: 150000">
+                        </div>
+                        <div class="campo">
+                            <label>Temporada (tag)</label>
+                            <select id="prod-tag" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ddd;">
+                                <option value="Primavera">Primavera</option>
+                                <option value="Verano">Verano</option>
+                                <option value="Otoño">Otoño</option>
+                                <option value="Invierno">Invierno</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Foto (Opcional si edita)</label>
+                            <input type="file" id="prod-img" accept="image/*" style="font-size:0.9rem">
+                        </div>
+                    </div>
+                    <div class="campo" style="margin-bottom:20px;">
+                        <label>Descripción</label>
+                        <input type="text" id="prod-desc" placeholder="Breve descripción del producto">
+                    </div>
+                    <div style="display:flex; gap:10px; justify-content:flex-end">
+                        <button class="btn btn--fantasma" id="btn-cancelar-prod">Cancelar</button>
+                        <button class="btn" id="btn-guardar-prod">Guardar</button>
+                    </div>
+                </div>
+
+                <!-- Grilla de productos -->
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;" id="grid-admin-productos">
+                    <!-- Dinámico -->
                 </div>
             </section>
 
