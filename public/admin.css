@@ -465,6 +465,15 @@ select {
     to { opacity: 1; transform: none; }
 }
 
+/* ---------- Layout Componentes ---------- */
+.seccion-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; gap: 12px; flex-wrap: wrap; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; gap: 12px; }
+    .seccion-head { flex-direction: column; align-items: flex-start; }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
