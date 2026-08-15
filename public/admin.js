@@ -1,10 +1,46 @@
+/**
+ * Panel de administración: sesión, navegación entre secciones y estado del bot.
+ *
+ * Para agregar una sección nueva no hace falta tocar este archivo: basta con
+ * sumar el botón .nav-item y la <section> correspondiente en admin.html.
+ * Lo que sí conviene reusar desde otros módulos:
+ *   window.aviso(texto, 'ok' | 'error')  → notificación abajo a la derecha
+ *   window.getAdminToken()               → token JWT para los endpoints /api/admin/*
+ */
 let token = localStorage.getItem('admin_token');
-let pollInterval;
+let pollInterval = null;
 
-document.getElementById('login-btn').onclick = async () => {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
-    
+const $ = (sel) => document.querySelector(sel);
+
+// --- Avisos ---
+window.aviso = function (texto, tipo) {
+    const cont = $('#avisos');
+    if (!cont) return;
+    const el = document.createElement('div');
+    el.className = 'aviso' + (tipo ? ' ' + tipo : '');
+    el.textContent = texto;
+    cont.appendChild(el);
+    setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(20px)';
+        setTimeout(() => el.remove(), 300);
+    }, 3600);
+};
+
+/** Cualquier módulo del panel necesita el token para pegarle a los endpoints protegidos. */
+window.getAdminToken = () => token;
+
+// --- Login ---
+async function iniciarSesion() {
+    const btn = $('#login-btn');
+    const err = $('#login-err');
+    const user = $('#username').value.trim();
+    const pass = $('#password').value;
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Ingresando…';
+
     try {
         const res = await fetch('/api/login', {
             method: 'POST',
@@ -12,110 +48,118 @@ document.getElementById('login-btn').onclick = async () => {
             body: JSON.stringify({ username: user, password: pass })
         });
         const data = await res.json();
-        if(data.success && data.role === 'admin') {
+        if (data.success && data.role === 'admin') {
             token = data.token;
             localStorage.setItem('admin_token', token);
-            showDashboard();
+            mostrarPanel();
         } else {
-            document.getElementById('login-err').style.display = 'block';
-        }
-    } catch(e) {
-        alert("Error de conexión con el servidor");
-    }
-};
-
-function showDashboard() {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    startPolling();
-}
-
-function startPolling() {
-    pollStatus();
-    pollInterval = setInterval(pollStatus, 3000);
-}
-
-async function pollStatus() {
-    try {
-        const res = await fetch('/api/admin/status', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if(res.status === 401 || res.status === 403) {
-            logout();
-            return;
-        }
-        
-        const data = await res.json();
-        const statusEl = document.getElementById('bot-status');
-        const qrWrapper = document.getElementById('qr-wrapper');
-        const qrImg = document.getElementById('qr-img');
-        
-        const disconnectBtn = document.getElementById('disconnect-btn');
-        
-        if (data.status === 'connected') {
-            statusEl.textContent = '✅ Conectado a WhatsApp';
-            statusEl.className = 'status connected';
-            qrWrapper.style.display = 'none';
-            if(disconnectBtn) disconnectBtn.style.display = 'block';
-        } else if ((data.status === 'qr_ready' || data.status === 'waiting') && data.qrUrl) {
-            statusEl.textContent = '⚠️ Esperando escaneo...';
-            statusEl.className = 'status waiting';
-            qrWrapper.style.display = 'block';
-            qrImg.src = data.qrUrl;
-            if(disconnectBtn) disconnectBtn.style.display = 'none';
-        } else {
-            statusEl.textContent = 'Desconectado / Iniciando...';
-            statusEl.className = 'status';
-            qrWrapper.style.display = 'none';
-            if(disconnectBtn) disconnectBtn.style.display = 'none';
-        }
-    } catch(e) {
-        console.error("Error polling", e);
-    }
-}
-
-window.disconnectBot = async function() {
-    if(!confirm('¿Estás seguro de que quieres desconectar el bot actual? Tendrás que escanear un nuevo código QR.')) return;
-    
-    try {
-        const btn = document.getElementById('disconnect-btn');
-        if(btn) {
-            btn.disabled = true;
-            btn.textContent = 'Desconectando...';
-        }
-        
-        const res = await fetch('/api/admin/bot/disconnect', {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        
-        if(res.ok) {
-            // Se desconectó con éxito, forzamos el poll ahora mismo
-            pollStatus();
-        } else {
-            alert('Hubo un error al intentar desconectar.');
+            err.textContent = 'Credenciales inválidas.';
         }
     } catch (e) {
-        alert('Error de red al intentar desconectar.');
+        err.textContent = 'No se pudo conectar con el servidor.';
     } finally {
-        const btn = document.getElementById('disconnect-btn');
-        if(btn) {
-            btn.disabled = false;
-            btn.textContent = 'Desconectar y Escanear Nuevo QR';
+        btn.disabled = false;
+        btn.textContent = 'Iniciar sesión';
+    }
+}
+
+$('#login-btn').onclick = iniciarSesion;
+['#username', '#password'].forEach((sel) => {
+    $(sel).addEventListener('keydown', (e) => { if (e.key === 'Enter') iniciarSesion(); });
+});
+
+// --- Panel ---
+function mostrarPanel() {
+    $('#pantalla-login').style.display = 'none';
+    $('#app').classList.add('activo');
+    arrancarPolling();
+}
+
+document.querySelectorAll('.nav-item').forEach((btn) => {
+    btn.onclick = () => {
+        document.querySelectorAll('.nav-item').forEach((b) => b.classList.remove('activo'));
+        document.querySelectorAll('.seccion').forEach((s) => s.classList.remove('activa'));
+        btn.classList.add('activo');
+        $('#seccion-' + btn.dataset.seccion).classList.add('activa');
+    };
+});
+
+// --- Estado del bot ---
+function arrancarPolling() {
+    consultarEstado();
+    clearInterval(pollInterval);
+    pollInterval = setInterval(consultarEstado, 3000);
+}
+
+async function consultarEstado() {
+    try {
+        const res = await fetch('/api/admin/status', { headers: { Authorization: `Bearer ${token}` } });
+        // 401 token inválido o vencido, 403 usuario sin rol de admin: en los dos casos
+        // no tiene sentido seguir en el panel.
+        if (res.status === 401 || res.status === 403) return cerrarSesion();
+
+        const data = await res.json();
+        const estado = $('#bot-status');
+        const qrWrapper = $('#qr-wrapper');
+        const qrImg = $('#qr-img');
+        const btnDesc = $('#disconnect-btn');
+
+        if (data.status === 'connected') {
+            estado.textContent = 'Conectado a WhatsApp';
+            estado.className = 'estado conectado';
+            qrWrapper.style.display = 'none';
+            btnDesc.style.display = 'inline-flex';
+        } else if ((data.status === 'qr_ready' || data.status === 'waiting') && data.qrUrl) {
+            estado.textContent = 'Esperando escaneo del QR';
+            estado.className = 'estado esperando';
+            qrWrapper.style.display = 'block';
+            qrImg.src = data.qrUrl;
+            btnDesc.style.display = 'none';
+        } else {
+            estado.textContent = 'Desconectado · iniciando…';
+            estado.className = 'estado';
+            qrWrapper.style.display = 'none';
+            btnDesc.style.display = 'none';
         }
+    } catch (e) {
+        console.error('Error consultando el estado del bot', e);
+    }
+}
+
+$('#disconnect-btn').onclick = async function () {
+    if (!confirm('¿Desconectar el bot actual? Vas a tener que escanear un QR nuevo.')) return;
+    const btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Desconectando…';
+    try {
+        const res = await fetch('/api/admin/bot/disconnect', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.ok) {
+            consultarEstado();
+            window.aviso('Bot desconectado.', 'ok');
+        } else {
+            window.aviso('No se pudo desconectar.', 'error');
+        }
+    } catch (e) {
+        window.aviso('Error de red al desconectar.', 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Desconectar y escanear nuevo QR';
     }
 };
 
-window.logout = function() {
+function cerrarSesion() {
     localStorage.removeItem('admin_token');
     token = null;
     clearInterval(pollInterval);
-    document.getElementById('login-section').style.display = 'block';
-    document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-};
-
-if (token) {
-    showDashboard();
+    $('#app').classList.remove('activo');
+    $('#pantalla-login').style.display = 'grid';
+    $('#username').value = '';
+    $('#password').value = '';
 }
+
+$('#logout-btn').onclick = cerrarSesion;
+
+if (token) mostrarPanel();

@@ -289,42 +289,53 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.get('/api/admin/status', async (req, res) => {
+/**
+ * Acceso restringido al panel: toda ruta /api/admin/* pasa por acá.
+ *
+ * Antes cada endpoint verificaba la firma del token por su cuenta y no miraba el
+ * rol, así que cualquier usuario logueado (aunque no fuera admin) podía usarlos.
+ * Ahora hay un solo lugar donde se decide quién entra, y distingue los dos casos:
+ *   401 → no hay token, está vencido o la firma no cierra
+ *   403 → el token es válido pero el usuario no es admin
+ *
+ * Cualquier endpoint nuevo del panel se monta con este middleware:
+ *   app.get('/api/admin/loQueSea', requiereAdmin, handler)
+ * y dentro del handler queda disponible req.usuario con { id, role }.
+ */
+function requiereAdmin(req, res, next) {
     const auth = req.headers.authorization;
-    if (!auth || !auth.startsWith('Bearer ')) return res.status(401).json({ error: 'No autorizado' });
-
+    if (!auth || !auth.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'No autorizado' });
+    }
     try {
-        jwt.verify(auth.split(' ')[1], JWT_SECRET);
-
-        // Solicitar estado al bot
-        try {
-            const botRes = await fetch(`${BOT_URL}/api/bot/status`);
-            const botData = await botRes.json();
-            res.json(botData);
-        } catch (botError) {
-            res.json({ status: 'disconnected', error: 'Servicio bot no disponible' });
+        const datos = jwt.verify(auth.split(' ')[1], JWT_SECRET);
+        if (datos.role !== 'admin') {
+            return res.status(403).json({ error: 'Necesitás permisos de administrador' });
         }
+        req.usuario = datos;
+        next();
     } catch (e) {
         res.status(401).json({ error: 'Token inválido' });
     }
+}
+
+app.get('/api/admin/status', requiereAdmin, async (req, res) => {
+    try {
+        const botRes = await fetch(`${BOT_URL}/api/bot/status`);
+        const botData = await botRes.json();
+        res.json(botData);
+    } catch (botError) {
+        res.json({ status: 'disconnected', error: 'Servicio bot no disponible' });
+    }
 });
 
-app.post('/api/admin/bot/disconnect', async (req, res) => {
-    const auth = req.headers.authorization;
-    if (!auth || !auth.startsWith('Bearer ')) return res.status(401).json({ error: 'No autorizado' });
-
+app.post('/api/admin/bot/disconnect', requiereAdmin, async (req, res) => {
     try {
-        jwt.verify(auth.split(' ')[1], JWT_SECRET);
-
-        try {
-            const botRes = await fetch(`${BOT_URL}/api/bot/disconnect`, { method: 'POST' });
-            const botData = await botRes.json();
-            res.json(botData);
-        } catch (botError) {
-            res.status(503).json({ error: 'Servicio bot no disponible' });
-        }
-    } catch (e) {
-        res.status(401).json({ error: 'Token inválido' });
+        const botRes = await fetch(`${BOT_URL}/api/bot/disconnect`, { method: 'POST' });
+        const botData = await botRes.json();
+        res.json(botData);
+    } catch (botError) {
+        res.status(503).json({ error: 'Servicio bot no disponible' });
     }
 });
 // === AUTO-PING PARA RENDER ===
