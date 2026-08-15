@@ -132,11 +132,11 @@
   },
   {
     id: 7,
-    title: "Flores Amarillas de Verano",
-    price: 100000,
+    title: "Rosas Amarillas",
+    price: 150000,
     img: "assets/f-amarillas.png",
-    tag: "Verano",
-    desc: "Hermoso arreglo de flores amarillas seleccionado para la temporada de Primavera."
+    tag: "Primavera",
+    desc: "Hermoso arreglo de rosas amarillas seleccionado para la temporada de Primavera."
   },
   {
     id: 8,
