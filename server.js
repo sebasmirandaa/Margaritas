@@ -366,7 +366,10 @@ app.post('/api/admin/products', requiereAdmin, (req, res) => {
             products = products.filter(p => p.id !== product.id);
         } else if (action === 'update') {
             const idx = products.findIndex(p => p.id === product.id);
-            if (idx >= 0) products[idx] = { ...products[idx], ...product };
+            if (idx >= 0) {
+                  products[idx] = { ...products[idx], ...product };
+                  if (product.oldPrice === null) delete products[idx].oldPrice;
+              }
         } else if (action === 'create') {
             const nextId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
             product.id = nextId;

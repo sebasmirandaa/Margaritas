@@ -277,8 +277,7 @@ if (token) mostrarPanel();
       
       if (!title || !price) return window.aviso('Nombre y precio requeridos', 'error');
 
-      const product = { title, price, desc, tag };
-      if (oldPrice) product.oldPrice = oldPrice;
+      const product = { title, price, desc, tag, oldPrice };
       if (idStr) product.id = parseInt(idStr, 10);
 
       // Leer imagen a base64
