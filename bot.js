@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { makeWASocket } = require('@whiskeysockets/baileys');
+const { makeWASocket, DisconnectReason } = require('@whiskeysockets/baileys');
 const express = require('express');
 const cors = require('cors');
 const usePostgresAuthState = require('./pgAuthState');
@@ -26,7 +26,7 @@ async function startBot() {
     sock.ev.on('creds.update', saveCreds);
 
     sock.ev.on('connection.update', async (update) => {
-        const { connection, qr } = update;
+        const { connection, qr, lastDisconnect } = update;
         
         if (qr) {
             botStatus = 'qr_ready';
@@ -36,8 +36,20 @@ async function startBot() {
 
         if (connection === 'close') {
             botStatus = 'disconnected';
-            console.log('Bot desconectado. Intentando reconectar...');
-            startBot();
+            const shouldReconnect = lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
+            console.log('Bot desconectado. Reconectando:', shouldReconnect);
+            
+            if (!shouldReconnect) {
+                console.log('Sesión cerrada o inválida. Borrando estado...');
+                if (clearStateFn) await clearStateFn();
+                const fs = require('fs');
+                if (fs.existsSync('auth_info_baileys')) {
+                    fs.rmSync('auth_info_baileys', { recursive: true, force: true });
+                }
+            }
+            
+            // Pausa breve para evitar bucles infinitos instantáneos
+            setTimeout(startBot, 3000);
         } else if (connection === 'open') {
             botStatus = 'connected';
             currentQRBase64 = null;
@@ -45,6 +57,7 @@ async function startBot() {
         }
     });
 }
+
 
 // Endpoint para que server.js pida enviar mensajes
 app.post('/api/bot/send', async (req, res) => {
