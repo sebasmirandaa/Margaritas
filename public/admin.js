@@ -220,13 +220,25 @@ if (token) mostrarPanel();
       $('#form-producto').style.display = 'none';
   });
 
+  
+  function formatearPrecioInput(e) {
+      let val = e.target.value.replace(/\D/g, '');
+      if (val) {
+          e.target.value = parseInt(val, 10).toLocaleString('es-PY');
+      } else {
+          e.target.value = '';
+      }
+  }
+  $('#prod-price')?.addEventListener('input', formatearPrecioInput);
+  $('#prod-old-price')?.addEventListener('input', formatearPrecioInput);
+
   window.editarProd = function(id) {
       const p = productosCache.find(x => x.id === id);
       if (!p) return;
       $('#prod-id').value = p.id;
       $('#prod-title').value = p.title || '';
-      $('#prod-old-price').value = p.oldPrice || '';
-      $('#prod-price').value = p.price || '';
+      $('#prod-old-price').value = p.oldPrice ? p.oldPrice.toLocaleString('es-PY') : '';
+      $('#prod-price').value = p.price ? p.price.toLocaleString('es-PY') : '';
       $('#prod-desc').value = p.desc || '';
       $('#prod-tag').value = p.tag || 'Primavera';
       $('#prod-img').value = '';
@@ -256,9 +268,9 @@ if (token) mostrarPanel();
   if (btnGuardar) btnGuardar.addEventListener('click', async () => {
       const idStr = $('#prod-id').value;
       const title = $('#prod-title').value.trim();
-      const oldPriceRaw = $('#prod-old-price').value;
+      const oldPriceRaw = $('#prod-old-price').value.replace(/\D/g, '');
       const oldPrice = oldPriceRaw ? parseInt(oldPriceRaw, 10) : null;
-      const price = parseInt($('#prod-price').value, 10);
+      const price = parseInt($('#prod-price').value.replace(/\D/g, ''), 10);
       const desc = $('#prod-desc').value.trim();
       const tag = $('#prod-tag').value;
       const fileInput = $('#prod-img');
