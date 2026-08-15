@@ -348,6 +348,14 @@
     img: "assets/verano_peonias.jpg",
     tag: "Verano",
     desc: "Voluminoso ramo de peonías y ranúnculos en vibrantes tonos coral, perfecto para el calor del verano."
+  },
+  {
+    id: 35,
+    title: "Ramo de Caléndulas y Gerberas",
+    price: 145000,
+    img: "assets/otono_calendulas.jpg",
+    tag: "Otoño",
+    desc: "Precioso arreglo en tonos cálidos, con caléndulas y gerberas, ideal para recibir la temporada de otoño."
   }
 ];
 
