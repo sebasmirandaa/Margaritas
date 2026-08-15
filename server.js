@@ -30,6 +30,22 @@ app.get('/admin', (req, res) => {
     res.redirect('/admin.html');
 });
 
+const sseClients = new Set();
+app.get('/api/updates', (req, res) => {
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
+    sseClients.add(res);
+    req.on('close', () => { sseClients.delete(res); });
+});
+
+function notifyUpdate() {
+    for (let client of sseClients) {
+        client.write('data: update\n\n');
+    }
+}
+
 // === CONFIGURACIÓN DE GEMINI ===
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 let ai = null;
@@ -378,6 +394,7 @@ app.post('/api/admin/products', requiereAdmin, (req, res) => {
 
         const newJs = js.replace(/var PRODUCTS = \[[\s\S]*?\];/, 'var PRODUCTS = ' + JSON.stringify(products, null, 2).replace(/\"([a-zA-Z0-9_]+)\":/g, '$1:') + ';');
         fs.writeFileSync(margaritaPath, newJs, 'utf8');
+        notifyUpdate();
         res.json({ success: true });
     } catch(e) {
         res.status(500).json({ success: false, error: e.message });

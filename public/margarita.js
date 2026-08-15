@@ -780,3 +780,13 @@
     renderAll();
   });
 })();
+
+
+if (window.EventSource) {
+  const evtSource = new EventSource('/api/updates');
+  evtSource.onmessage = function(event) {
+    if (event.data === 'update') {
+      window.location.reload(true);
+    }
+  };
+}
