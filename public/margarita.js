@@ -84,19 +84,19 @@
   },
   {
     id: 1,
-    title: "Rosas en Caja de Primavera",
-    price: 100000,
+    title: "Caja premium negra",
+    price: 200000,
     img: "assets/gen_2.jpg",
-    tag: "Primavera",
-    desc: "Arreglo de rosas en caja seleccionado para la temporada de Primavera."
+    tag: "Invierno",
+    desc: "Caja premium negra con hermosas flores, especial para el invierno."
   },
   {
     id: 2,
-    title: "Girasoles y Margaritas de Primavera",
-    price: 100000,
+    title: "Girasoles y margaritas",
+    price: 110000,
     img: "assets/gen_3.jpg",
-    tag: "Primavera",
-    desc: "Arreglo de girasoles y margaritas seleccionado para la temporada de Primavera."
+    tag: "Verano",
+    desc: "Arreglo de girasoles y margaritas perfecto para la calidez del verano."
   },
   {
     id: 3,
@@ -108,11 +108,11 @@
   },
   {
     id: 4,
-    title: "Ramo Silvestre de Primavera",
-    price: 100000,
+    title: "Ramo silvestre pastel",
+    price: 95000,
     img: "assets/gen_5.jpg",
-    tag: "Primavera",
-    desc: "Arreglo de ramo silvestre seleccionado para la temporada de Primavera."
+    tag: "Otoño",
+    desc: "Un hermoso ramo silvestre en tonos pastel ideal para el otoño."
   },
   {
     id: 5,
@@ -300,6 +300,22 @@
     tag: "Verano",
     img: "assets/lirios.png",
     id: 28
+  },
+  {
+    title: "Ramo de Rosas Rojas en Papel Negro",
+    price: 130000,
+    tag: "Invierno",
+    img: "assets/rosas_rojas_negras.png",
+    desc: "Elegante ramo de rosas rojas envuelto en papel negro mate, ideal para el invierno.",
+    id: 29
+  },
+  {
+    title: "Ramo de Girasoles y Rosas Amarillas",
+    price: 140000,
+    tag: "Verano",
+    img: "assets/girasoles_rosas.png",
+    desc: "Brillante combinación de girasoles y rosas amarillas para iluminar tus días de verano.",
+    id: 30
   }
 ];
 
