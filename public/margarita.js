@@ -74,31 +74,234 @@
 
   // ---------- Catálogo ----------
   var PRODUCTS = [
-    { id: 0, title: 'Peonías Rosadas de Primavera', price: 100000, img: 'assets/gen_1.jpg', tag: 'Primavera', desc: 'Arreglo de peonías rosadas seleccionado para la temporada de Primavera.' },
-    { id: 1, title: 'Rosas en Caja de Primavera', price: 100000, img: 'assets/gen_2.jpg', tag: 'Primavera', desc: 'Arreglo de rosas en caja seleccionado para la temporada de Primavera.' },
-    { id: 2, title: 'Girasoles y Margaritas de Primavera', price: 100000, img: 'assets/gen_3.jpg', tag: 'Primavera', desc: 'Arreglo de girasoles y margaritas seleccionado para la temporada de Primavera.' },
-    { id: 3, title: 'Orquídea Blanca de Primavera', price: 100000, img: 'assets/gen_4.jpg', tag: 'Primavera', desc: 'Arreglo de orquídea blanca seleccionado para la temporada de Primavera.' },
-    { id: 4, title: 'Ramo Silvestre de Primavera', price: 100000, img: 'assets/gen_5.jpg', tag: 'Primavera', desc: 'Arreglo de ramo silvestre seleccionado para la temporada de Primavera.' },
-    { id: 5, title: 'Tulipanes de Primavera', price: 100000, img: 'assets/gen_6.jpg', tag: 'Primavera', desc: 'Arreglo de tulipanes seleccionado para la temporada de Primavera.' },
-    { id: 6, title: 'Rosas Rojas de Verano', price: 100000, img: 'assets/f-rojas.png', tag: 'Verano', desc: 'Hermoso arreglo de rosas rojas seleccionado para la temporada de Primavera.' },
-    { id: 7, title: 'Flores Amarillas de Verano', price: 100000, img: 'assets/f-amarillas.png', tag: 'Verano', desc: 'Hermoso arreglo de flores amarillas seleccionado para la temporada de Primavera.' },
-    { id: 8, title: 'Girasoles de Verano', price: 100000, img: 'assets/f-girasol.png', tag: 'Verano', desc: 'Hermoso arreglo de girasoles seleccionado para la temporada de Primavera.' },
-    { id: 9, title: 'Ramo de Astromelias Rosas de Verano', price: 100000, img: 'assets/astromelias_1.png', tag: 'Verano', desc: 'Hermoso ramo de Astromelias seleccionadas para la temporada.' },
-    { id: 10, title: 'Ramo de Lirios y Gypsophila de Verano', price: 100000, img: 'assets/lirios_1.png', tag: 'Verano', desc: 'Hermoso ramo de Lirios rosados seleccionados para la temporada.' },
-    { id: 11, title: 'Ramo de Lirios Elegante de Verano', price: 100000, img: 'assets/lirios_2.jpg', tag: 'Verano', desc: 'Arreglo elegante de Lirios seleccionados para la temporada.' },
-    { id: 12, title: 'Ramo de Lirios Rosados de Otoño', price: 100000, img: 'assets/lirios_3.png', tag: 'Otoño', desc: 'Hermoso ramo de Lirios rosados.' },
-    { id: 13, title: 'Ramo de Lirios Premium de Otoño', price: 100000, img: 'assets/lirios_4.png', tag: 'Otoño', desc: 'Ramo de Lirios calidad premium para la temporada.' },
-    { id: 14, title: 'Ramo de Crisantemos Bicolor de Otoño', price: 100000, img: 'assets/crisantemos_1.jpg', tag: 'Otoño', desc: 'Hermoso arreglo de crisantemos bicolores seleccionados.' },
-    { id: 15, title: 'Ramo de Girasoles de Otoño', price: 100000, img: 'assets/girasoles_1.jpg', tag: 'Otoño', desc: 'Luminoso ramo de girasoles seleccionados para la temporada de Verano.' },
-    { id: 16, title: 'Ramo de Margaritas Blancas de Otoño', price: 100000, img: 'assets/margaritas_1.jpg', tag: 'Otoño', desc: 'Clásico arreglo de margaritas blancas frescas.' },
-    { id: 17, title: 'Ramo de Margaritas Clásicas de Otoño', price: 100000, img: 'assets/margaritas_2.jpg', tag: 'Otoño', desc: 'Hermoso ramo de margaritas blancas seleccionadas.' },
-    { id: 18, title: 'Ramo de Astromelias Delicadas de Invierno', price: 100000, img: 'assets/astromelias_2.jpg', tag: 'Invierno', desc: 'Elegante arreglo de astromelias rosadas.' },
-    { id: 19, title: 'Ramo de Rosas Inicial N de Invierno', price: 120000, img: 'assets/f_rosas_n.jpg', tag: 'Invierno', desc: 'Ramo de rosas rojas con inicial N blanca.' },
-    { id: 20, title: 'Ramo de Rosas Inicial F de Invierno', price: 120000, img: 'assets/f_rosas_f.jpg', tag: 'Invierno', desc: 'Ramo de rosas rojas con inicial F blanca.' },
-    { id: 21, title: 'Ramo de Rosas Inicial A con Corona de Invierno', price: 130000, img: 'assets/f_rosas_a.jpg', tag: 'Invierno', desc: 'Ramo de rosas rojas con inicial A y una elegante corona.' },
-    { id: 22, title: 'Ramo de Girasoles Rústico de Invierno', price: 100000, img: 'assets/f_girasoles_2.jpg', tag: 'Invierno', desc: 'Luminoso ramo de girasoles envuelto en papel oscuro.' },
-    { id: 23, title: 'Ramo de Claveles Rosados de Invierno', price: 100000, img: 'assets/f_claveles_1.png', tag: 'Invierno', desc: 'Delicado ramo de claveles rosados y gypsophila.' }
-  ];
+  {
+    id: 0,
+    title: "Peonías Rosadas de Primavera",
+    price: 100000,
+    img: "assets/gen_1.jpg",
+    tag: "Primavera",
+    desc: "Arreglo de peonías rosadas seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 1,
+    title: "Rosas en Caja de Primavera",
+    price: 100000,
+    img: "assets/gen_2.jpg",
+    tag: "Primavera",
+    desc: "Arreglo de rosas en caja seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 2,
+    title: "Girasoles y Margaritas de Primavera",
+    price: 100000,
+    img: "assets/gen_3.jpg",
+    tag: "Primavera",
+    desc: "Arreglo de girasoles y margaritas seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 3,
+    title: "Orquídea Blanca de Primavera",
+    price: 100000,
+    img: "assets/gen_4.jpg",
+    tag: "Primavera",
+    desc: "Arreglo de orquídea blanca seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 4,
+    title: "Ramo Silvestre de Primavera",
+    price: 100000,
+    img: "assets/gen_5.jpg",
+    tag: "Primavera",
+    desc: "Arreglo de ramo silvestre seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 5,
+    title: "Tulipanes de Primavera",
+    price: 100000,
+    img: "assets/gen_6.jpg",
+    tag: "Primavera",
+    desc: "Arreglo de tulipanes seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 6,
+    title: "Rosas Rojas de Verano",
+    price: 100000,
+    img: "assets/f-rojas.png",
+    tag: "Verano",
+    desc: "Hermoso arreglo de rosas rojas seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 7,
+    title: "Flores Amarillas de Verano",
+    price: 100000,
+    img: "assets/f-amarillas.png",
+    tag: "Verano",
+    desc: "Hermoso arreglo de flores amarillas seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 8,
+    title: "Girasoles de Verano",
+    price: 100000,
+    img: "assets/f-girasol.png",
+    tag: "Verano",
+    desc: "Hermoso arreglo de girasoles seleccionado para la temporada de Primavera."
+  },
+  {
+    id: 9,
+    title: "Ramo de Astromelias Rosas de Verano",
+    price: 100000,
+    img: "assets/astromelias_1.png",
+    tag: "Verano",
+    desc: "Hermoso ramo de Astromelias seleccionadas para la temporada."
+  },
+  {
+    id: 10,
+    title: "Ramo de Lirios y Gypsophila de Verano",
+    price: 100000,
+    img: "assets/lirios_1.png",
+    tag: "Verano",
+    desc: "Hermoso ramo de Lirios rosados seleccionados para la temporada."
+  },
+  {
+    id: 11,
+    title: "Ramo de Lirios Elegante de Verano",
+    price: 100000,
+    img: "assets/lirios_2.jpg",
+    tag: "Verano",
+    desc: "Arreglo elegante de Lirios seleccionados para la temporada."
+  },
+  {
+    id: 12,
+    title: "Ramo de Lirios Rosados de Otoño",
+    price: 100000,
+    img: "assets/lirios_3.png",
+    tag: "Otoño",
+    desc: "Hermoso ramo de Lirios rosados."
+  },
+  {
+    id: 13,
+    title: "Ramo de Lirios Premium de Otoño",
+    price: 100000,
+    img: "assets/lirios_4.png",
+    tag: "Otoño",
+    desc: "Ramo de Lirios calidad premium para la temporada."
+  },
+  {
+    id: 14,
+    title: "Ramo de Crisantemos Bicolor de Otoño",
+    price: 100000,
+    img: "assets/crisantemos_1.jpg",
+    tag: "Otoño",
+    desc: "Hermoso arreglo de crisantemos bicolores seleccionados."
+  },
+  {
+    id: 15,
+    title: "Ramo de Girasoles de Otoño",
+    price: 100000,
+    img: "assets/girasoles_1.jpg",
+    tag: "Otoño",
+    desc: "Luminoso ramo de girasoles seleccionados para la temporada de Verano."
+  },
+  {
+    id: 16,
+    title: "Ramo de Margaritas Blancas de Otoño",
+    price: 100000,
+    img: "assets/margaritas_1.jpg",
+    tag: "Otoño",
+    desc: "Clásico arreglo de margaritas blancas frescas."
+  },
+  {
+    id: 17,
+    title: "Ramo de Margaritas Clásicas de Otoño",
+    price: 100000,
+    img: "assets/margaritas_2.jpg",
+    tag: "Otoño",
+    desc: "Hermoso ramo de margaritas blancas seleccionadas."
+  },
+  {
+    id: 18,
+    title: "Ramo de Astromelias Delicadas de Invierno",
+    price: 100000,
+    img: "assets/astromelias_2.jpg",
+    tag: "Invierno",
+    desc: "Elegante arreglo de astromelias rosadas."
+  },
+  {
+    id: 19,
+    title: "Ramo de Rosas Inicial N de Invierno",
+    price: 120000,
+    img: "assets/f_rosas_n.jpg",
+    tag: "Invierno",
+    desc: "Ramo de rosas rojas con inicial N blanca."
+  },
+  {
+    id: 20,
+    title: "Ramo de Rosas Inicial F de Invierno",
+    price: 120000,
+    img: "assets/f_rosas_f.jpg",
+    tag: "Invierno",
+    desc: "Ramo de rosas rojas con inicial F blanca."
+  },
+  {
+    id: 21,
+    title: "Ramo de Rosas Inicial A con Corona de Invierno",
+    price: 130000,
+    img: "assets/f_rosas_a.jpg",
+    tag: "Invierno",
+    desc: "Ramo de rosas rojas con inicial A y una elegante corona."
+  },
+  {
+    id: 22,
+    title: "Ramo de Girasoles Rústico de Invierno",
+    price: 100000,
+    img: "assets/f_girasoles_2.jpg",
+    tag: "Invierno",
+    desc: "Luminoso ramo de girasoles envuelto en papel oscuro."
+  },
+  {
+    id: 23,
+    title: "Ramo de Claveles Rosados de Invierno",
+    price: 100000,
+    img: "assets/f_claveles_1.png",
+    tag: "Invierno",
+    desc: "Delicado ramo de claveles rosados y gypsophila."
+  },
+  {
+    title: "Ramo de Rosas Rosadas",
+    price: 100000,
+    tag: "Primavera",
+    img: "assets/rosas_rosadas.png",
+    id: 24
+  },
+  {
+    title: "Ramo Clásico de Rosas Rojas",
+    price: 120000,
+    tag: "Primavera",
+    img: "assets/rosas_rojas.png",
+    id: 25
+  },
+  {
+    title: "Ramo Mixto Rosa y Fucsia",
+    price: 80000,
+    tag: "Otoño",
+    img: "assets/margaritas_mixtas.png",
+    id: 26
+  },
+  {
+    title: "Ramo de Tulipanes Rosados",
+    price: 150000,
+    tag: "Invierno",
+    img: "assets/tulipanes.png",
+    id: 27
+  },
+  {
+    title: "Ramo de Lirios Rosados",
+    price: 140000,
+    tag: "Verano",
+    img: "assets/lirios.png",
+    id: 28
+  }
+];
 
   var FILTERS = [
     { key: 'todo', label: 'Todo' },
