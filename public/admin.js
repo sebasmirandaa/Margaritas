@@ -257,7 +257,7 @@ if (token) mostrarPanel();
           });
           if (res.ok) {
               window.aviso('Producto eliminado', 'ok');
-              cargarProductos();
+              setTimeout(() => window.location.reload(), 800);
           } else {
               window.aviso('Error al eliminar', 'error');
           }
@@ -302,11 +302,11 @@ if (token) mostrarPanel();
                   product
               })
           });
-          if (res.ok) {
-              window.aviso(idStr ? 'Actualizado correctamente' : 'Producto creado', 'ok');
-              $('#form-producto').style.display = 'none';
-              cargarProductos();
-          } else {
+            if (res.ok) {
+                window.aviso(idStr ? 'Actualizado correctamente' : 'Producto creado', 'ok');
+                $('#form-producto').style.display = 'none';
+                setTimeout(() => window.location.reload(), 800);
+            } else {
               window.aviso('Error al guardar', 'error');
           }
       } catch(e) { window.aviso('Error de conexión', 'error'); }
