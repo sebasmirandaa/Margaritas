@@ -15,7 +15,15 @@ const NUMERO_VENTAS = (process.env.NUMERO_VENTAS || '595971140350') + '@s.whatsa
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
-app.use(express.static(path.join(__dirname, 'public'))); // Servir HTML estático
+app.use(express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, reqPath) => {
+        if (reqPath.endsWith('.js') || reqPath.endsWith('.html') || reqPath.endsWith('.css')) {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
+        }
+    }
+})); // Servir HTML estático
 
 // Redirigir /admin a admin.html
 app.get('/admin', (req, res) => {
