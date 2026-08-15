@@ -106,8 +106,8 @@ function extraerBasico(message) {
     const horarioMatch = texto.match(/(?:a\s+las?\s+)?(\d{1,2}(?::\d{2})?\s*(?:hs?|am|pm|de la (?:mañana|tarde|noche)))/i)
         || texto.match(/\b(mañana|manana|hoy|esta tarde|esta noche|por la (?:mañana|manana|tarde|noche))\b/i);
 
-    const dedicatoria = (texto.match(/(?:dedicatoria|mensaje|tarjeta)\s*(?:que\s+diga)?\s*[:"“]\s*([^"”\n]+)/i)
-        || texto.match(/que\s+diga\s*[:"“]?\s*([^"”\n.]+)/i)
+    const dedicatoria = (texto.match(/(?:dedicatoria|mensaje|tarjeta)\s*(?:que\s+diga)?\s*[:"“]\s*([\s\S]+?)(?=\n(?:👤|🫂|📱|⏰)|$)/i)
+        || texto.match(/que\s+diga\s*[:"“]?\s*([\s\S]+?)(?=\n(?:👤|🫂|📱|⏰)|$)/i)
         || [null, null])[1];
 
     return {
@@ -140,7 +140,7 @@ Devolvé ÚNICAMENTE JSON válido, sin markdown:
   "remitente": "quién envía o null",
   "destinatario": "quién recibe o null",
   "telefono": "teléfono de contacto o null",
-  "dedicatoria": "texto de la dedicatoria o null",
+  "dedicatoria": "el texto EXACTO y COMPLETO de la dedicatoria (incluyendo saltos de línea) o null",
   "horario": "horario de entrega o null"
 }
 Poné null en todo lo que el último mensaje no aporte. No inventes datos.
