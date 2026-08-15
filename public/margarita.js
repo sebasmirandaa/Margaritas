@@ -284,14 +284,14 @@
     title: "Ramo Mixto Rosa y Fucsia",
     price: 80000,
     tag: "Otoño",
-    img: "assets/margaritas_mixtas.png",
+    img: "assets/margaritas_mixtas.jpg",
     id: 26
   },
   {
     title: "Ramo de Tulipanes Rosados",
     price: 150000,
     tag: "Invierno",
-    img: "assets/tulipanes.png",
+    img: "assets/tulipanes.jpg",
     id: 27
   },
   {
