@@ -598,6 +598,7 @@ body.season-open .site-header { z-index: 80; }
 }
 
 @media (max-width: 780px) {
+    .hero-delivery { font-size: 16px; }
   .site-header { gap: 8px; padding: 12px 16px; flex-wrap: wrap; }
   .main-nav { order: 3; width: 100%; gap: 16px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; -ms-overflow-style: none; }
   .main-nav::-webkit-scrollbar { display: none; }
@@ -664,6 +665,7 @@ body.season-open .site-header { z-index: 80; }
 
 /* ---------- Pantallas mínimas (Galaxy Fold ~280px, iPhone SE 320px) ---------- */
 @media (max-width: 420px) {
+    .hero-delivery { font-size: 14.5px; }
   .cart-btn span:not(.cart-count) { display: none; }
   .cart-btn { padding: 9px 13px; }
   .hero-title { font-size: 38px; }
