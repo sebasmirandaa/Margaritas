@@ -465,10 +465,11 @@
     }
     if ($('feat-title')) $('feat-title').textContent = th.featTitle;
 
-    $('flowers-chips').innerHTML = th.flowers.map(function (f) {
-      var p = PRODUCTS.find(function(prod) { return prod.title === f + ' de ' + th.name; });
-      var props = p ? ' data-open="' + p.id + '" tabindex="0" role="button" aria-label="Ver ' + esc(p.title) + '"' : '';
-      return '<span class="chip"' + props + '>' + esc(f) + '</span>';
+    var seasonProducts = PRODUCTS.filter(function(p) { return p.tag === th.name; });
+    $('flowers-chips').innerHTML = seasonProducts.map(function (p) {
+      var shortName = p.title.replace(new RegExp(' de ' + th.name + '$', 'i'), '').trim();
+      var props = ' data-open="' + p.id + '" tabindex="0" role="button" aria-label="Ver ' + esc(p.title) + '"';
+      return '<span class="chip"' + props + '>' + esc(shortName) + '</span>';
     }).join('');
 
     document.title = 'Margarita Florería · ' + th.name + ' en Asunción';
