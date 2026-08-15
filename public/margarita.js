@@ -463,7 +463,6 @@
   function renderAll() {
     syncBodyLock();
     renderTheme();
-    renderFeatured();
     renderFilters();
     renderCatalog();
     renderCart();
