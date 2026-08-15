@@ -671,6 +671,7 @@
       if (seasonBtn) {
         var key = seasonBtn.getAttribute('data-set-season');
         state.season = (key === 'auto') ? null : key;
+        state.filter = SEASONS[currentSeasonKey()].name;
         state.sheetOpen = false;
         save();
         renderAll();
