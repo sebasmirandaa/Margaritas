@@ -272,13 +272,7 @@
     '</article>';
   }
 
-  function renderFeatured() {
-    var th = theme();
-    var prods = PRODUCTS.filter(function(p) { return p.tag === th.name; }).slice(0, 4);
-    $('grid-featured').innerHTML = prods.map(function (p) {
-      return cardHTML(p, false);
-    }).join('');
-  }
+
 
   function renderFilters() {
     $('filters').innerHTML = FILTERS.map(function (f) {
