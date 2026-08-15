@@ -59,15 +59,15 @@
       key: 'otono', name: 'Otoño', icon: 'leaf', months: 'mar – may', ink: '#4a3220',
       heroLine1: 'Colores de', heroLine2: 'Otoño', heroTag: 'Ramo silvestre pastel', heroPrice: '95.000 Gs',
       heroImg: 'assets/gen_5.jpg', promoScript: 'Promo de otoño', featTitle: 'Favoritos del otoño',
-      promoTitle: 'Ramo cálido + vela aromática', promoSub: 'Incluye una dedicatoria', promoProduct: 30,
-      flowers: ["Crisantemo", "Rosa", "Dalia", "Aster", "Caléndula", "Pensamiento", "Begonia", "Cosmos", "Hortensia", "Salvia", "Alstroemeria", "Camelia", "Clavel", "Margarita", "Verbena"], feat: [30, 31, 32, 33]
+      promoTitle: 'Ramo cálido + vela aromática', promoSub: 'Incluye una dedicatoria', promoProduct: 9,
+      flowers: ["Crisantemo", "Rosa", "Dalia", "Aster", "Caléndula", "Pensamiento", "Begonia", "Cosmos", "Hortensia", "Salvia", "Alstroemeria", "Camelia", "Clavel", "Margarita", "Verbena"], feat: [0, 7, 12, 6]
     },
     invierno: {
       key: 'invierno', name: 'Invierno', icon: 'snow', months: 'jun – ago', ink: '#22344a',
       heroLine1: 'Abrigá el', heroLine2: 'Invierno', heroTag: 'Caja premium negra', heroPrice: '200.000 Gs',
       heroImg: 'assets/gen_2.jpg', promoScript: 'Promo de invierno', featTitle: 'Favoritos del invierno',
-      promoTitle: 'Ramo grande + peluche', promoSub: 'Incluye una dedicatoria', promoProduct: 45,
-      flowers: ["Rosa", "Camelia", "Ciclamen", "Pensamiento", "Prímula", "Begonia", "Caléndula", "Jazmín de invierno", "Azalea", "Narciso", "Tulipán", "Violeta", "Mahonia", "Helleboro", "Alhelí"], feat: [45, 46, 47, 48]
+      promoTitle: 'Ramo grande + peluche', promoSub: 'Incluye una dedicatoria', promoProduct: 5,
+      flowers: ["Rosa", "Camelia", "Ciclamen", "Pensamiento", "Prímula", "Begonia", "Caléndula", "Jazmín de invierno", "Azalea", "Narciso", "Tulipán", "Violeta", "Mahonia", "Helleboro", "Alhelí"], feat: [7, 10, 20, 4]
     }
   };
   var SEASON_ORDER = ['primavera', 'verano', 'otono', 'invierno'];
@@ -97,43 +97,7 @@
     { id: 20, title: 'Ramo de Rosas Inicial F', price: 120000, img: 'assets/f_rosas_f.jpg', tag: 'Verano', desc: 'Ramo de rosas rojas con inicial F blanca.' },
     { id: 21, title: 'Ramo de Rosas Inicial A con Corona', price: 130000, img: 'assets/f_rosas_a.jpg', tag: 'Verano', desc: 'Ramo de rosas rojas con inicial A y una elegante corona.' },
     { id: 22, title: 'Ramo de Girasoles Rústico', price: 100000, img: 'assets/f_girasoles_2.jpg', tag: 'Verano', desc: 'Luminoso ramo de girasoles envuelto en papel oscuro.' },
-    { id: 23, title: 'Ramo de Claveles Rosados', price: 100000, img: 'assets/f_claveles_1.png', tag: 'Verano', desc: 'Delicado ramo de claveles rosados y gypsophila.' },
-    { id: 24, title: 'Rosas Rojas de Verano', price: 100000, img: 'assets/f-rojas.png', tag: 'Verano', desc: 'Hermoso arreglo de rosas rojas seleccionado para la temporada de Verano.' },
-    { id: 25, title: 'Flores Amarillas de Verano', price: 100000, img: 'assets/f-amarillas.png', tag: 'Verano', desc: 'Hermoso arreglo de flores amarillas seleccionado para la temporada de Verano.' },
-    { id: 26, title: 'Girasoles de Verano', price: 100000, img: 'assets/f-girasol.png', tag: 'Verano', desc: 'Hermoso arreglo de girasoles seleccionado para la temporada de Verano.' },
-    { id: 27, title: 'Peonías Rosadas de Verano', price: 100000, img: 'assets/gen_1.jpg', tag: 'Verano', desc: 'Arreglo de peonías rosadas seleccionado para la temporada de Verano.' },
-    { id: 28, title: 'Rosas en Caja de Verano', price: 100000, img: 'assets/gen_2.jpg', tag: 'Verano', desc: 'Arreglo de rosas en caja seleccionado para la temporada de Verano.' },
-    { id: 29, title: 'Girasoles y Margaritas de Verano', price: 100000, img: 'assets/gen_3.jpg', tag: 'Verano', desc: 'Arreglo de girasoles y margaritas seleccionado para la temporada de Verano.' },
-    { id: 30, title: 'Orquídea Blanca de Otoño', price: 100000, img: 'assets/gen_4.jpg', tag: 'Otoño', desc: 'Arreglo de orquídea blanca seleccionado para la temporada de Otoño.' },
-    { id: 31, title: 'Ramo Silvestre de Otoño', price: 100000, img: 'assets/gen_5.jpg', tag: 'Otoño', desc: 'Arreglo de ramo silvestre seleccionado para la temporada de Otoño.' },
-    { id: 32, title: 'Tulipanes de Otoño', price: 100000, img: 'assets/gen_6.jpg', tag: 'Otoño', desc: 'Arreglo de tulipanes seleccionado para la temporada de Otoño.' },
-    { id: 33, title: 'Rosas Rojas de Otoño', price: 100000, img: 'assets/f-rojas.png', tag: 'Otoño', desc: 'Hermoso arreglo de rosas rojas seleccionado para la temporada de Otoño.' },
-    { id: 34, title: 'Flores Amarillas de Otoño', price: 100000, img: 'assets/f-amarillas.png', tag: 'Otoño', desc: 'Hermoso arreglo de flores amarillas seleccionado para la temporada de Otoño.' },
-    { id: 35, title: 'Girasoles de Otoño', price: 100000, img: 'assets/f-girasol.png', tag: 'Otoño', desc: 'Hermoso arreglo de girasoles seleccionado para la temporada de Otoño.' },
-    { id: 36, title: 'Peonías Rosadas de Otoño', price: 100000, img: 'assets/gen_1.jpg', tag: 'Otoño', desc: 'Arreglo de peonías rosadas seleccionado para la temporada de Otoño.' },
-    { id: 37, title: 'Rosas en Caja de Otoño', price: 100000, img: 'assets/gen_2.jpg', tag: 'Otoño', desc: 'Arreglo de rosas en caja seleccionado para la temporada de Otoño.' },
-    { id: 38, title: 'Girasoles y Margaritas de Otoño', price: 100000, img: 'assets/gen_3.jpg', tag: 'Otoño', desc: 'Arreglo de girasoles y margaritas seleccionado para la temporada de Otoño.' },
-    { id: 39, title: 'Orquídea Blanca Especial de Otoño', price: 100000, img: 'assets/gen_4.jpg', tag: 'Otoño', desc: 'Arreglo de orquídea blanca seleccionado para la temporada de Otoño.' },
-    { id: 40, title: 'Ramo Silvestre Especial de Otoño', price: 100000, img: 'assets/gen_5.jpg', tag: 'Otoño', desc: 'Arreglo de ramo silvestre seleccionado para la temporada de Otoño.' },
-    { id: 41, title: 'Tulipanes Especial de Otoño', price: 100000, img: 'assets/gen_6.jpg', tag: 'Otoño', desc: 'Arreglo de tulipanes seleccionado para la temporada de Otoño.' },
-    { id: 42, title: 'Rosas Rojas Clásicos de Otoño', price: 100000, img: 'assets/f-rojas.png', tag: 'Otoño', desc: 'Hermoso arreglo de rosas rojas seleccionado para la temporada de Otoño.' },
-    { id: 43, title: 'Flores Amarillas Clásicos de Otoño', price: 100000, img: 'assets/f-amarillas.png', tag: 'Otoño', desc: 'Hermoso arreglo de flores amarillas seleccionado para la temporada de Otoño.' },
-    { id: 44, title: 'Girasoles Clásicos de Otoño', price: 100000, img: 'assets/f-girasol.png', tag: 'Otoño', desc: 'Hermoso arreglo de girasoles seleccionado para la temporada de Otoño.' },
-    { id: 45, title: 'Peonías Rosadas de Invierno', price: 100000, img: 'assets/gen_1.jpg', tag: 'Invierno', desc: 'Arreglo de peonías rosadas seleccionado para la temporada de Invierno.' },
-    { id: 46, title: 'Rosas en Caja de Invierno', price: 100000, img: 'assets/gen_2.jpg', tag: 'Invierno', desc: 'Arreglo de rosas en caja seleccionado para la temporada de Invierno.' },
-    { id: 47, title: 'Girasoles y Margaritas de Invierno', price: 100000, img: 'assets/gen_3.jpg', tag: 'Invierno', desc: 'Arreglo de girasoles y margaritas seleccionado para la temporada de Invierno.' },
-    { id: 48, title: 'Orquídea Blanca de Invierno', price: 100000, img: 'assets/gen_4.jpg', tag: 'Invierno', desc: 'Arreglo de orquídea blanca seleccionado para la temporada de Invierno.' },
-    { id: 49, title: 'Ramo Silvestre de Invierno', price: 100000, img: 'assets/gen_5.jpg', tag: 'Invierno', desc: 'Arreglo de ramo silvestre seleccionado para la temporada de Invierno.' },
-    { id: 50, title: 'Tulipanes de Invierno', price: 100000, img: 'assets/gen_6.jpg', tag: 'Invierno', desc: 'Arreglo de tulipanes seleccionado para la temporada de Invierno.' },
-    { id: 51, title: 'Rosas Rojas de Invierno', price: 100000, img: 'assets/f-rojas.png', tag: 'Invierno', desc: 'Hermoso arreglo de rosas rojas seleccionado para la temporada de Invierno.' },
-    { id: 52, title: 'Flores Amarillas de Invierno', price: 100000, img: 'assets/f-amarillas.png', tag: 'Invierno', desc: 'Hermoso arreglo de flores amarillas seleccionado para la temporada de Invierno.' },
-    { id: 53, title: 'Girasoles de Invierno', price: 100000, img: 'assets/f-girasol.png', tag: 'Invierno', desc: 'Hermoso arreglo de girasoles seleccionado para la temporada de Invierno.' },
-    { id: 54, title: 'Peonías Rosadas Especial de Invierno', price: 100000, img: 'assets/gen_1.jpg', tag: 'Invierno', desc: 'Arreglo de peonías rosadas seleccionado para la temporada de Invierno.' },
-    { id: 55, title: 'Rosas en Caja Especial de Invierno', price: 100000, img: 'assets/gen_2.jpg', tag: 'Invierno', desc: 'Arreglo de rosas en caja seleccionado para la temporada de Invierno.' },
-    { id: 56, title: 'Girasoles y Margaritas Especial de Invierno', price: 100000, img: 'assets/gen_3.jpg', tag: 'Invierno', desc: 'Arreglo de girasoles y margaritas seleccionado para la temporada de Invierno.' },
-    { id: 57, title: 'Orquídea Blanca Especial de Invierno', price: 100000, img: 'assets/gen_4.jpg', tag: 'Invierno', desc: 'Arreglo de orquídea blanca seleccionado para la temporada de Invierno.' },
-    { id: 58, title: 'Ramo Silvestre Especial de Invierno', price: 100000, img: 'assets/gen_5.jpg', tag: 'Invierno', desc: 'Arreglo de ramo silvestre seleccionado para la temporada de Invierno.' },
-    { id: 59, title: 'Tulipanes Especial de Invierno', price: 100000, img: 'assets/gen_6.jpg', tag: 'Invierno', desc: 'Arreglo de tulipanes seleccionado para la temporada de Invierno.' }
+    { id: 23, title: 'Ramo de Claveles Rosados', price: 100000, img: 'assets/f_claveles_1.png', tag: 'Verano', desc: 'Delicado ramo de claveles rosados y gypsophila.' }
   ];
 
   var FILTERS = [
