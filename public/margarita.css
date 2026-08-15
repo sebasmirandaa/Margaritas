@@ -216,11 +216,15 @@ body.season-open .site-header { z-index: 80; }
 .season-card[data-key="invierno"][aria-pressed="true"]  { border-color: #b02436; }
 
 .season-auto {
-  width: 100%; margin-top: 8px; border: none; cursor: pointer;
-  background: #f0e9e2; color: #6a5d52;
-  font-weight: 700; font-size: 12.5px; padding: 10px; border-radius: 12px;
+    width: 100%; margin-top: 8px; border: none; cursor: pointer;
+    background: var(--primary); color: #fff;
+    font-weight: 700; font-size: 12.5px; padding: 10px; border-radius: 12px;
+    transition: opacity 0.2s, background 0.2s;
+  }
+.season-auto.is-auto {
+    background: color-mix(in srgb, var(--primary) 20%, transparent);
+    color: var(--primary);
 }
-.season-auto.is-auto { background: var(--accent); color: #fff; }
 
 /* ---------- Hero ---------- */
 .hero { background: var(--hero-bg); overflow: hidden; transition: background .4s ease; }
