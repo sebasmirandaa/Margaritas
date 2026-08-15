@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "margaritas-admin": {
+      "command": "node",
+      "args": ["mcp-server.js"]
+    }
+  }
+}
