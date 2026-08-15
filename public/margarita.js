@@ -885,12 +885,22 @@
       var seasonBtn = t.closest('[data-set-season]');
       if (seasonBtn) {
         var key = seasonBtn.getAttribute('data-set-season');
-        state.season = (key === 'auto') ? null : key;
+        if (key === 'auto') {
+          if (state.season === null) {
+            state.season = autoSeason();
+            toast('Tema automático desactivado');
+          } else {
+            state.season = null;
+            toast('Tema automático activado');
+          }
+        } else {
+          state.season = key;
+          toast('Tema ' + SEASONS[key].name + ' activado');
+        }
         state.filter = SEASONS[currentSeasonKey()].name;
         state.sheetOpen = false;
         save();
         renderAll();
-        toast(key === 'auto' ? 'Tema automático activado' : 'Tema ' + SEASONS[key].name + ' activado');
         return;
       }
 
