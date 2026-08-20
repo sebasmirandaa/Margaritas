@@ -1035,7 +1035,14 @@
       }
     });
 
-    // Envío del asistente
+    // Auto-expand textarea y Envio
+    document.addEventListener('input', function(e) {
+      if (e.target.id === 'assistant-input') {
+        e.target.style.height = 'auto';
+        e.target.style.height = (e.target.scrollHeight) + 'px';
+      }
+    });
+
     document.addEventListener('keydown', function (e) {
       if (e.target.id === 'assistant-input' && e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
