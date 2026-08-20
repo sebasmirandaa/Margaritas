@@ -517,12 +517,12 @@
   }
 
   function cardHTML(p, compact) {
-    return '<article class="p-card' + (compact ? ' compact' : '') + '" data-open="' + p.id + '" tabindex="0" role="button" ' +
-      'aria-label="Ver ' + esc(p.title) + '">' +
-      '<div class="p-media">' +
-        '<div class="p-img" style="background-image:url(\'' + p.img + '\')"></div>' +
-        (compact ? '<span class="p-tag">' + esc(p.tag) + '</span>' : '') +
-      '</div>' +
+      return '<article class="p-card' + (compact ? ' compact' : '') + '" data-open="' + p.id + '" tabindex="0" role="button" ' +
+        'aria-label="Ver ' + esc(p.title) + '">' +
+        '<div class="p-media">' +
+          '<img class="p-img" src="' + p.img + '" alt="' + esc(p.title) + '" loading="lazy">' +
+          (compact ? '<span class="p-tag">' + esc(p.tag) + '</span>' : '') +
+        '</div>' +
       '<div class="p-body">' +
         '<h3 class="p-title">' + esc(p.title) + '</h3>' +
         '<div class="p-foot">' +
@@ -566,7 +566,7 @@
     var body = lines.length
       ? lines.map(function (l) {
           return '<div class="cart-row">' +
-            '<div class="cart-thumb" style="background-image:url(\'' + l.img + '\')"></div>' +
+            '<img class="cart-thumb" src="' + l.img + '" alt="' + esc(l.title) + '" loading="lazy">' +
             '<div class="cart-info">' +
               '<div class="cart-name">' + esc(l.title) + '</div>' +
               '<div class="cart-price">' + fmt(l.subtotal) + '</div>' +
@@ -648,7 +648,7 @@
     host.innerHTML =
       '<div class="scrim" data-close="detail"></div>' +
       '<div class="detail" role="dialog" aria-modal="true" aria-label="' + esc(p.title) + '">' +
-        '<div class="detail-img" style="background-image:url(\'' + p.img + '\')"></div>' +
+        '<img class="detail-img" src="' + p.img + '" alt="' + esc(p.title) + '" loading="lazy">' +
         '<div class="detail-body">' +
           '<span class="detail-tag">' + esc(p.tag) + '</span>' +
           '<h2 class="detail-title">' + esc(p.title) + '</h2>' +
