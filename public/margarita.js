@@ -24,7 +24,8 @@
     phone: ['M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'],
     sparkles: ['M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z', 'M19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z'],
     send: ['m22 2-7 20-4-9-9-4Z', 'M22 2 11 13'],
-    truck: ['M14 16V6H2v10h12Z', 'M14 9h3.5l2.5 3.5V16h-6']
+    truck: ['M14 16V6H2v10h12Z', 'M14 9h3.5l2.5 3.5V16h-6'],
+    trash: ['M3 6h18', 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2', 'M10 11v6', 'M14 11v6']
   };
   var ICON_EXTRA = {
     flower: '<circle cx="12" cy="12" r="2.6"></circle>',
@@ -451,7 +452,7 @@
       var c = JSON.parse(localStorage.getItem(LS_CART) || '[]');
       if (Array.isArray(c)) {
         state.cart = c.filter(function (x) { return x && product(x.id) && x.qty > 0; })
-          .map(function (x) { return { id: x.id, qty: Math.min(99, x.qty | 0) }; });
+          .map(function (x) { return { id: x.id, qty: Math.max(1, Math.min(999, x.qty | 0)) }; });
       }
       var s = localStorage.getItem(LS_SEASON);
       if (s && SEASONS[s]) state.season = s;
@@ -574,6 +575,7 @@
               '<button class="dec" data-qty="' + l.id + '" data-delta="-1" aria-label="Quitar uno de ' + esc(l.title) + '">−</button>' +
               '<span class="n">' + l.qty + '</span>' +
               '<button class="inc" data-qty="' + l.id + '" data-delta="1" aria-label="Agregar uno de ' + esc(l.title) + '">+</button>' +
+              '<button class="trash" data-trash="' + l.id + '" aria-label="Eliminar ' + esc(l.title) + '" style="margin-left:8px;background:none;border:none;cursor:pointer;color:#a53030;padding:2px 6px;">' + icon('trash', 16, 'currentColor') + '</button>' +
             '</div>' +
           '</div>';
         }).join('')
@@ -706,8 +708,8 @@
         '<div class="assistant-cart">🛍️ ' + esc(resumen) + '</div>' +
         '<form class="assistant-foot" id="assistant-form">' +
           '<label class="sr-only" for="assistant-input">Tu mensaje</label>' +
-          '<input id="assistant-input" autocomplete="off" placeholder="Ej: Soy Carlos, envíale a Ana al 0991..."' +
-            (state.sending ? ' disabled' : '') + '>' +
+          '<textarea id="assistant-input" rows="1" autocomplete="off" placeholder="Ej: Soy Carlos, envíale a Ana al 0991..." style="resize:none; padding:12px; font-family:inherit; font-size:15px; border-radius:18px; border:1px solid #ccc; flex:1; outline:none;"' +
+            (state.sending ? ' disabled' : '') + '></textarea>' +
           '<button class="assistant-send" type="submit" aria-label="Enviar"' + (state.sending ? ' disabled' : '') + '>' +
             icon('send', 18, '#fff') + '</button>' +
         '</form>' +
@@ -745,6 +747,13 @@
     renderCart();
     renderAssistant();
     if (!silent) toast('¡' + p.title + ' agregado al carrito!');
+  }
+
+  function removeCartItem(id) {
+    state.cart = state.cart.filter(function (c) { return c.id !== id; });
+    save();
+    renderCart();
+    renderAssistant();
   }
 
   function changeQty(id, delta) {
@@ -977,6 +986,12 @@
         return;
       }
 
+      var trashBtn = t.closest('[data-trash]');
+      if (trashBtn) {
+        removeCartItem(parseInt(trashBtn.getAttribute('data-trash'), 10));
+        return;
+      }
+
       var filterBtn = t.closest('[data-filter]');
       if (filterBtn) {
         state.filter = filterBtn.getAttribute('data-filter');
@@ -1021,6 +1036,14 @@
     });
 
     // Envío del asistente
+    document.addEventListener('keydown', function (e) {
+      if (e.target.id === 'assistant-input' && e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        var form = document.getElementById('assistant-form');
+        if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+    });
+
     document.addEventListener('submit', function (e) {
       if (e.target.id !== 'assistant-form') return;
       e.preventDefault();
