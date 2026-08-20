@@ -117,6 +117,27 @@ button { font-family: inherit; }
 
 .shell { max-width: 1180px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
 
+/* ---------- Top Banner ---------- */
+.top-banner {
+  background: #0f172a;
+  color: #f8fafc;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  letter-spacing: 0.3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 50;
+  border-bottom: 1px solid #1e293b;
+}
+.top-banner strong {
+  font-weight: 600;
+  color: #38bdf8;
+}
+
 /* ---------- Header ---------- */
 .site-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -310,7 +331,7 @@ body.season-open .site-header { z-index: 80; }
 }
 .p-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 0, 0, .12); }
 .p-media { position: relative; }
-.p-img { height: 230px; background-size: cover; background-position: center; }
+.p-img { height: 230px; width: 100%; object-fit: cover; display: block; }
 .p-card.compact .p-img { height: 210px; }
 .p-tag {
   position: absolute; top: 10px; left: 10px;
@@ -437,7 +458,7 @@ body.season-open .site-header { z-index: 80; }
   padding: 10px; align-items: center;
   animation: floatIn .25s ease both;
 }
-.cart-thumb { flex: none; width: 56px; height: 56px; border-radius: 10px; background-size: cover; background-position: center; }
+.cart-thumb { flex: none; width: 56px; height: 56px; border-radius: 10px; object-fit: cover; display: block; }
 .cart-info { flex: 1; min-width: 0; }
 .cart-name { font-weight: 700; font-size: 13.5px; color: #3a2e28; }
 .cart-price { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 14px; color: var(--deep); }
@@ -482,7 +503,7 @@ body.season-open .site-header { z-index: 80; }
   display: grid; grid-template-columns: 1fr 1fr;
   animation: popIn .3s ease both;
 }
-.detail-img { background-size: cover; background-position: center; min-height: 420px; }
+.detail-img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 420px; }
 .detail-body { padding: 28px; display: flex; flex-direction: column; overflow-y: auto; }
 .detail-tag {
   align-self: flex-start; background: var(--chip-bg); color: var(--chip-ink);
