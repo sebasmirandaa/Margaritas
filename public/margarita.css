@@ -117,27 +117,6 @@ button { font-family: inherit; }
 
 .shell { max-width: 1180px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
 
-/* ---------- Top Banner ---------- */
-.top-banner {
-  background: #0f172a;
-  color: #f8fafc;
-  text-align: center;
-  padding: 10px 16px;
-  font-size: 13.5px;
-  letter-spacing: 0.3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  z-index: 50;
-  border-bottom: 1px solid #1e293b;
-}
-.top-banner strong {
-  font-weight: 600;
-  color: #38bdf8;
-}
-
 /* ---------- Header ---------- */
 .site-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -740,4 +719,64 @@ body.season-open .site-header { z-index: 80; }
   .season-card { padding: 10px 8px; }
   .season-card .nm { font-size: 12.5px; }
   .season-card .mo { font-size: 10px; }
+}
+/* ---------- FAQ Section ---------- */
+.faq-section {
+  padding-bottom: 60px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-section .section-title {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.faq-item {
+  background: var(--nav-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.faq-q {
+  padding: 18px 20px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--deep);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  transition: background 0.2s;
+}
+.faq-q::-webkit-details-marker {
+  display: none;
+}
+.faq-q:hover {
+  background: rgba(0,0,0,0.02);
+}
+.faq-q::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #c98888;
+  transition: transform 0.3s;
+}
+.faq-item[open] .faq-q::after {
+  transform: rotate(45deg);
+}
+.faq-a {
+  padding: 0 20px 20px 20px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #5a4a3a;
+  animation: fadeIn 0.3s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
